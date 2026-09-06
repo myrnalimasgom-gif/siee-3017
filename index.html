@@ -7,226 +7,233 @@
 <title>SIEE 3017</title>
 
 <style>
-  * {
-    box-sizing: border-box;
-  }
+* {
+  box-sizing: border-box;
+}
 
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f1f7;
-    color: #333;
-  }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f1f7;
+  color: #333;
+}
 
-  header {
-    background: #6b3fa0;
-    color: white;
-    text-align: center;
-    padding: 22px 15px;
-  }
+header {
+  background: #6b3fa0;
+  color: white;
+  text-align: center;
+  padding: 22px 15px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 25px;
+}
+
+header h2 {
+  margin: 8px 0 0;
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.contenedor {
+  max-width: 1200px;
+  margin: 25px auto;
+  padding: 0 15px;
+}
+
+.buscador {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.10);
+  text-align: center;
+}
+
+.buscador h3 {
+  margin-top: 0;
+  color: #6b3fa0;
+  font-size: 24px;
+}
+
+.buscador p {
+  font-size: 18px;
+}
+
+input {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px;
+  border: 2px solid #6b3fa0;
+  border-radius: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+button {
+  margin-top: 15px;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 10px;
+  background: #6b3fa0;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+#mensaje {
+  margin-top: 18px;
+  min-height: 22px;
+  font-weight: bold;
+}
+
+.cargando {
+  color: #6b3fa0;
+}
+
+.error {
+  color: #c00000;
+}
+
+.exito {
+  color: #38761d;
+}
+
+.datos-alumno {
+  display: none;
+  margin-top: 25px;
+}
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.tarjeta {
+  background: white;
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,.08);
+}
+
+.tarjeta .titulo {
+  font-size: 13px;
+  color: #777;
+}
+
+.tarjeta .valor {
+  font-size: 23px;
+  font-weight: bold;
+  margin-top: 8px;
+  color: #6b3fa0;
+}
+
+.tabla-contenedor {
+  background: white;
+  border-radius: 14px;
+  padding: 15px;
+  overflow-x: auto;
+  box-shadow: 0 3px 12px rgba(0,0,0,.10);
+}
+
+.tabla-contenedor h3 {
+  color: #6b3fa0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 1400px;
+}
+
+th {
+  background: #6b3fa0;
+  color: white;
+  padding: 9px;
+  border: 1px solid #ddd;
+  white-space: nowrap;
+}
+
+td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.verde {
+  background: #b6d7a8;
+  font-weight: bold;
+}
+
+.amarillo {
+  background: #ffe599;
+  font-weight: bold;
+}
+
+.rojo {
+  background: #ea9999;
+  font-weight: bold;
+}
+
+.gris {
+  background: #eeeeee;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  color: #777;
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
 
   header h1 {
-    margin: 0;
-    font-size: 24px;
+    font-size: 22px;
   }
 
   header h2 {
-    margin: 7px 0 0;
-    font-size: 15px;
-    font-weight: normal;
-  }
-
-  .contenedor {
-    max-width: 1200px;
-    margin: 25px auto;
-    padding: 0 15px;
+    font-size: 13px;
   }
 
   .buscador {
-    background: white;
-    padding: 20px;
-    border-radius: 14px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.10);
-    text-align: center;
+    padding: 20px 15px;
   }
 
   .buscador h3 {
-    margin-top: 0;
-    color: #6b3fa0;
-  }
-
-  input {
-    width: 100%;
-    max-width: 400px;
-    padding: 13px;
-    border: 2px solid #d4c5e5;
-    border-radius: 10px;
-    font-size: 16px;
-    text-align: center;
-  }
-
-  button {
-    margin-top: 12px;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 10px;
-    background: #6b3fa0;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background: #573283;
-  }
-
-  #mensaje {
-    margin-top: 15px;
-    font-weight: bold;
-  }
-
-  .datos-alumno {
-    display: none;
-    margin-top: 20px;
+    font-size: 21px;
   }
 
   .tarjetas {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    margin-bottom: 20px;
+    grid-template-columns: 1fr 1fr;
   }
-
-  .tarjeta {
-    background: white;
-    border-radius: 14px;
-    padding: 18px;
-    text-align: center;
-    box-shadow: 0 3px 10px rgba(0,0,0,.08);
-  }
-
-  .tarjeta .titulo {
-    font-size: 13px;
-    color: #777;
-  }
-
-  .tarjeta .valor {
-    font-size: 25px;
-    font-weight: bold;
-    margin-top: 7px;
-    color: #6b3fa0;
-  }
-
-  .estado {
-    font-size: 18px !important;
-  }
-
-  .tabla-contenedor {
-    background: white;
-    border-radius: 14px;
-    padding: 15px;
-    overflow-x: auto;
-    box-shadow: 0 3px 12px rgba(0,0,0,.10);
-  }
-
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    min-width: 1400px;
-  }
-
-  th {
-    background: #6b3fa0;
-    color: white;
-    padding: 9px;
-    border: 1px solid #ddd;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    white-space: nowrap;
-  }
-
-  td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  td.nombre {
-    text-align: left;
-    font-weight: bold;
-    position: sticky;
-    left: 0;
-    background: white;
-    z-index: 1;
-  }
-
-  .verde {
-    background: #b6d7a8;
-    font-weight: bold;
-  }
-
-  .amarillo {
-    background: #ffe599;
-    font-weight: bold;
-  }
-
-  .rojo {
-    background: #ea9999;
-    font-weight: bold;
-  }
-
-  .gris {
-    background: #eeeeee;
-  }
-
-  footer {
-    text-align: center;
-    padding: 25px 15px;
-    color: #777;
-    font-size: 13px;
-  }
-
-  .cargando {
-    color: #6b3fa0;
-  }
-
-  .error {
-    color: #c00000;
-  }
-
-  @media (max-width: 600px) {
-
-    header h1 {
-      font-size: 20px;
-    }
-
-    header h2 {
-      font-size: 13px;
-    }
-
-    .tarjetas {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .tarjeta .valor {
-      font-size: 20px;
-    }
-  }
+}
 </style>
 </head>
 
 <body>
 
 <header>
+
   <h1>🐺 SIEE 3017</h1>
+
   <h2>
     Escuela Secundaria Estatal "Gral. Francisco Villa" No. 3017
   </h2>
+
   <h2>
     Sistema Integral de Evaluación y Economía Escolar (SIEE)
   </h2>
+
 </header>
 
 
@@ -236,9 +243,7 @@
 
     <h3>Consulta de alumno</h3>
 
-    <p>
-      Ingresa el ID de tu hijo(a)
-    </p>
+    <p>Ingresa el ID de tu hijo(a)</p>
 
     <input
       type="text"
@@ -249,7 +254,7 @@
 
     <br>
 
-    <button onclick="buscarAlumno()">
+    <button type="button" id="botonConsultar">
       CONSULTAR
     </button>
 
@@ -279,7 +284,7 @@
 
       <div class="tarjeta">
         <div class="titulo">ESTADO</div>
-        <div class="valor estado" id="estadoAlumno">---</div>
+        <div class="valor" id="estadoAlumno">---</div>
       </div>
 
     </div>
@@ -289,7 +294,7 @@
 
       <h3>📊 Desempeño académico</h3>
 
-      <table id="tablaAlumno">
+      <table>
 
         <thead>
           <tr id="encabezados"></tr>
@@ -315,9 +320,479 @@
 
 <script>
 
-/* =====================================================
-   DATOS DE GOOGLE SHEETS
-   ===================================================== */
+const SPREADSHEET_ID =
+  "1ZCgGSCttmO2Dog-g6p5pDn-buNmsmWo9tM5Mgsf-aC0";
 
-const URL_DATOS =
-  "
+const GID =
+  "1047865760";
+
+let datosGoogle = null;
+
+
+/* ==========================================
+   MENSAJE
+   ========================================== */
+
+function mostrarMensaje(texto, clase) {
+
+  const mensaje =
+    document.getElementById("mensaje");
+
+  mensaje.textContent = texto;
+
+  mensaje.className = clase || "";
+
+}
+
+
+/* ==========================================
+   GOOGLE RESPONDE AQUÍ
+   ========================================== */
+
+function recibirDatos(respuesta) {
+
+  console.log("Respuesta de Google:", respuesta);
+
+  if (
+    !respuesta ||
+    !respuesta.table
+  ) {
+
+    mostrarMensaje(
+      "No se pudo recibir la información de Google.",
+      "error"
+    );
+
+    return;
+  }
+
+  datosGoogle = respuesta.table;
+
+  mostrarMensaje(
+    "Información lista. Escribe el ID y pulsa CONSULTAR.",
+    "exito"
+  );
+
+}
+
+
+/* ==========================================
+   CARGAR GOOGLE SHEETS
+   ========================================== */
+
+function cargarDatos() {
+
+  mostrarMensaje(
+    "Cargando información...",
+    "cargando"
+  );
+
+  const script =
+    document.createElement("script");
+
+  const url =
+    "https://docs.google.com/spreadsheets/d/" +
+    SPREADSHEET_ID +
+    "/gviz/tq?gid=" +
+    GID +
+    "&tqx=responseHandler%3ArecibirDatos";
+
+  script.src = url;
+
+  script.onerror = function() {
+
+    mostrarMensaje(
+      "No se pudo conectar con la información pública.",
+      "error"
+    );
+
+  };
+
+  document.head.appendChild(script);
+
+}
+
+
+/* ==========================================
+   BUSCAR ALUMNO
+   ========================================== */
+
+function buscarAlumno() {
+
+  mostrarMensaje(
+    "Consultando...",
+    "cargando"
+  );
+
+  const campo =
+    document.getElementById("idAlumno");
+
+  const id =
+    campo.value
+      .trim()
+      .toUpperCase();
+
+  if (!id) {
+
+    mostrarMensaje(
+      "Escribe el ID del alumno.",
+      "error"
+    );
+
+    return;
+  }
+
+  if (!datosGoogle) {
+
+    mostrarMensaje(
+      "La información todavía está cargando. Espera unos segundos y vuelve a pulsar CONSULTAR.",
+      "cargando"
+    );
+
+    return;
+  }
+
+  const filas =
+    datosGoogle.rows || [];
+
+  let encontrada = null;
+
+
+  for (let i = 0; i < filas.length; i++) {
+
+    const celdas =
+      filas[i].c || [];
+
+    const valor =
+      celdas[0] &&
+      celdas[0].v != null
+        ? String(celdas[0].v)
+            .trim()
+            .toUpperCase()
+        : "";
+
+    if (valor === id) {
+
+      encontrada = celdas;
+
+      break;
+
+    }
+
+  }
+
+
+  if (!encontrada) {
+
+    mostrarMensaje(
+      "No se encontró el ID " + id + ".",
+      "error"
+    );
+
+    document
+      .getElementById("datosAlumno")
+      .style.display = "none";
+
+    return;
+  }
+
+
+  mostrarAlumno(
+    datosGoogle.cols,
+    encontrada
+  );
+
+}
+
+
+/* ==========================================
+   MOSTRAR INFORMACIÓN
+   ========================================== */
+
+function mostrarAlumno(columnas, fila) {
+
+  const encabezados =
+    document.getElementById("encabezados");
+
+  const filaAlumno =
+    document.getElementById("filaAlumno");
+
+  encabezados.innerHTML = "";
+
+  filaAlumno.innerHTML = "";
+
+
+  let nombre = "";
+
+  let promedio = "";
+
+  let saldo = "";
+
+
+  for (
+    let i = 0;
+    i < columnas.length;
+    i++
+  ) {
+
+    const columna =
+      columnas[i] || {};
+
+    const encabezado =
+      columna.label || "";
+
+
+    const celda =
+      fila[i] || {};
+
+    const valor =
+      celda.v != null
+        ? celda.v
+        : "";
+
+    const texto =
+      celda.f != null
+        ? celda.f
+        : valor;
+
+
+    const th =
+      document.createElement("th");
+
+    th.textContent =
+      encabezado;
+
+    encabezados.appendChild(th);
+
+
+    const td =
+      document.createElement("td");
+
+    td.textContent =
+      texto;
+
+    aplicarSemaforo(
+      td,
+      valor
+    );
+
+
+    const nombreEncabezado =
+      encabezado
+        .toString()
+        .toUpperCase();
+
+
+    if (
+      nombreEncabezado
+        .includes("NOMBRE")
+    ) {
+
+      nombre = texto;
+
+    }
+
+
+    if (
+      nombreEncabezado
+        .includes("PROM FINAL")
+    ) {
+
+      promedio = texto;
+
+    }
+
+
+    if (
+      nombreEncabezado
+        .includes("SAL PROM")
+    ) {
+
+      saldo = texto;
+
+    }
+
+
+    filaAlumno.appendChild(td);
+
+  }
+
+
+  document
+    .getElementById("nombreAlumno")
+    .textContent =
+      nombre || "Alumno";
+
+
+  document
+    .getElementById("promedioFinal")
+    .textContent =
+      promedio || "---";
+
+
+  document
+    .getElementById("matepesos")
+    .textContent =
+      saldo || "---";
+
+
+  const numero =
+    parseFloat(
+      String(promedio)
+        .replace(",", ".")
+    );
+
+
+  const estado =
+    document.getElementById("estadoAlumno");
+
+
+  if (isNaN(numero)) {
+
+    estado.textContent =
+      "---";
+
+  }
+
+  else if (numero >= 8) {
+
+    estado.textContent =
+      "🟢 APROBADO";
+
+    estado.style.color =
+      "#38761d";
+
+  }
+
+  else if (numero >= 6) {
+
+    estado.textContent =
+      "🟡 REGULAR";
+
+    estado.style.color =
+      "#bf9000";
+
+  }
+
+  else {
+
+    estado.textContent =
+      "🔴 EN RIESGO";
+
+    estado.style.color =
+      "#cc0000";
+
+  }
+
+
+  document
+    .getElementById("datosAlumno")
+    .style.display =
+      "block";
+
+
+  mostrarMensaje(
+    "Consulta realizada correctamente.",
+    "exito"
+  );
+
+}
+
+
+/* ==========================================
+   SEMÁFORO
+   ========================================== */
+
+function aplicarSemaforo(celda, valor) {
+
+  if (
+    valor === "" ||
+    valor === null ||
+    valor === undefined
+  ) {
+
+    celda.classList.add("gris");
+
+    return;
+  }
+
+
+  const numero =
+    parseFloat(
+      String(valor)
+        .replace(",", ".")
+    );
+
+
+  if (isNaN(numero)) {
+
+    return;
+
+  }
+
+
+  if (numero >= 8) {
+
+    celda.classList.add("verde");
+
+  }
+
+  else if (numero >= 6) {
+
+    celda.classList.add("amarillo");
+
+  }
+
+  else {
+
+    celda.classList.add("rojo");
+
+  }
+
+}
+
+
+/* ==========================================
+   BOTÓN
+   ========================================== */
+
+document
+  .getElementById("botonConsultar")
+  .addEventListener(
+    "click",
+    buscarAlumno
+  );
+
+
+/* ==========================================
+   ENTER
+   ========================================== */
+
+document
+  .getElementById("idAlumno")
+  .addEventListener(
+    "keydown",
+    function(event) {
+
+      if (
+        event.key === "Enter"
+      ) {
+
+        buscarAlumno();
+
+      }
+
+    }
+  );
+
+
+/* ==========================================
+   INICIAR
+   ========================================== */
+
+cargarDatos();
+
+</script>
+
+</body>
+</html>
