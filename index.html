@@ -1,184 +1,643 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>SIEE 3017</title>
+<title>SIEE 3017</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background: #f4f6f9;
-      font-family: Arial, sans-serif;
-    }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #eef4ff, #ffffff);
+  color: #222;
+}
 
-    #cargando {
-      position: fixed;
-      inset: 0;
-      background: #f4f6f9;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      z-index: 10;
-    }
+.cargando {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 25px;
+}
 
-    .logo {
-      font-size: 60px;
-      margin-bottom: 10px;
-    }
+.logo {
+  font-size: 65px;
+  margin-bottom: 5px;
+}
 
-    h1 {
-      color: #0b5394;
-      margin: 5px 0;
-      font-size: 28px;
-    }
+.titulo {
+  color: #0b5394;
+  font-size: 27px;
+  font-weight: bold;
+  margin: 5px 0;
+}
 
-    h2 {
-      color: #444;
-      font-size: 18px;
-      font-weight: normal;
-      margin: 8px 20px 25px;
-    }
+.subtitulo {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.4;
+}
 
-    .loader {
-      width: 42px;
-      height: 42px;
-      border: 5px solid #ddd;
-      border-top: 5px solid #0b5394;
-      border-radius: 50%;
-      animation: girar 1s linear infinite;
-    }
+.loader {
+  width: 45px;
+  height: 45px;
+  border: 5px solid #ddd;
+  border-top: 5px solid #0b5394;
+  border-radius: 50%;
+  animation: girar 1s linear infinite;
+  margin-top: 25px;
+}
 
-    @keyframes girar {
-      100% {
-        transform: rotate(360deg);
-      }
-    }
+@keyframes girar {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
-    #portal {
-      display: none;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+.portal {
+  display: none;
+  min-height: 100vh;
+  padding: 20px;
+}
 
-    #error {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: #f4f6f9;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 25px;
-    }
+.encabezado {
+  background: white;
+  border-radius: 20px;
+  padding: 22px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,.10);
+  margin-bottom: 20px;
+}
 
-    .errorBox {
-      background: white;
-      max-width: 500px;
-      padding: 30px;
-      border-radius: 18px;
-      box-shadow: 0 3px 15px rgba(0,0,0,.15);
-    }
+.encabezado .logo {
+  font-size: 48px;
+}
 
-    .boton {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 13px 24px;
-      background: #0b5394;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
-    }
-  </style>
+.escuela {
+  color: #0b5394;
+  font-size: 19px;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+.sistema {
+  color: #555;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.alumno {
+  margin-top: 15px;
+  font-size: 21px;
+  font-weight: bold;
+  color: #222;
+}
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.tarjeta {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,.10);
+}
+
+.etiqueta {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.valor {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.promedio {
+  color: #0b5394;
+}
+
+.matepesos {
+  color: #38761d;
+}
+
+.estado {
+  color: #0b5394;
+}
+
+.id {
+  color: #666;
+  font-size: 15px;
+}
+
+.aviso {
+  max-width: 700px;
+  margin: 20px auto;
+  background: white;
+  border-radius: 18px;
+  padding: 18px;
+  text-align: center;
+  color: #555;
+  box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+.pie {
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+  margin-top: 30px;
+  padding-bottom: 20px;
+}
+
+.error {
+  display: none;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 25px;
+}
+
+.errorBox {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 450px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.12);
+}
+
+@media (max-width: 500px) {
+
+  .tarjetas {
+    grid-template-columns: 1fr;
+  }
+
+  .portal {
+    padding: 12px;
+  }
+
+  .escuela {
+    font-size: 17px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <div id="cargando">
+<!-- ========================= -->
+<!-- CARGANDO -->
+<!-- ========================= -->
+
+<div id="cargando" class="cargando">
+
+  <div class="logo">🐺</div>
+
+  <div class="titulo">
+    SIEE 3017
+  </div>
+
+  <div class="subtitulo">
+    Sistema Integral de Evaluación<br>
+    y Economía Escolar
+  </div>
+
+  <div class="loader"></div>
+
+  <p>Consultando información del alumno...</p>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- PORTAL -->
+<!-- ========================= -->
+
+<div id="portal" class="portal">
+
+  <div class="encabezado">
+
     <div class="logo">🐺</div>
 
-    <h1>SIEE 3017</h1>
-
-    <h2>
-      Sistema Integral de Evaluación<br>
-      y Economía Escolar
-    </h2>
-
-    <div class="loader"></div>
-
-    <p>Abriendo el portal del alumno...</p>
-  </div>
-
-  <iframe
-    id="portal"
-    allow="fullscreen">
-  </iframe>
-
-  <div id="error">
-    <div class="errorBox">
-      <div class="logo">🐺</div>
-
-      <h1>SIEE 3017</h1>
-
-      <p>
-        No se pudo abrir el portal automáticamente.
-      </p>
-
-      <a id="botonEntrada"
-         class="boton"
-         href="#">
-        ENTRAR AL PORTAL
-      </a>
+    <div class="escuela">
+      Escuela Secundaria Estatal<br>
+      "Gral. Francisco Villa" No. 3017
     </div>
+
+    <div class="sistema">
+      Sistema Integral de Evaluación y Economía Escolar
+    </div>
+
+    <div id="alumno" class="alumno">
+    </div>
+
   </div>
 
-  <script>
 
-    const URL_SIEE =
-      "https://script.google.com/macros/s/AKfycbxrdzzEQ4qmJcj_VU0PxFOh3F3BeErzVpU30Cxl7OwH8bjfxBLA89lLwuVRlS5HapG7JA/exec";
+  <div class="tarjetas">
 
-    const parametros = new URLSearchParams(window.location.search);
+    <div class="tarjeta">
 
-    const id = parametros.get("id");
+      <div class="etiqueta">
+        PROMEDIO FINAL
+      </div>
 
-    if (!id) {
+      <div id="promedio" class="valor promedio">
+      </div>
 
-      document.getElementById("cargando").style.display = "none";
-      document.getElementById("error").style.display = "flex";
+    </div>
 
-      document.querySelector("#error p").textContent =
-        "No se recibió el identificador del alumno.";
 
-    } else {
+    <div class="tarjeta">
 
-      const urlAlumno =
-        URL_SIEE + "?id=" + encodeURIComponent(id);
+      <div class="etiqueta">
+        MATEPESOS
+      </div>
 
-      document.getElementById("portal").src = urlAlumno;
+      <div id="matepesos" class="valor matepesos">
+      </div>
 
-      document.getElementById("botonEntrada").href = urlAlumno;
+    </div>
 
-      setTimeout(function() {
 
-        document.getElementById("cargando").style.display = "none";
-        document.getElementById("portal").style.display = "block";
+    <div class="tarjeta">
 
-      }, 2500);
-    }
+      <div class="etiqueta">
+        ESTADO ACADÉMICO
+      </div>
 
-  </script>
+      <div id="estado" class="valor estado">
+      </div>
+
+    </div>
+
+
+    <div class="tarjeta">
+
+      <div class="etiqueta">
+        IDENTIFICADOR
+      </div>
+
+      <div id="idAlumno" class="valor id">
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="aviso">
+
+    📚 <b>Consulta de desempeño escolar</b>
+
+    <br><br>
+
+    Este portal muestra la información académica
+    y económica correspondiente al alumno.
+
+  </div>
+
+
+  <div class="pie">
+
+    Profesora Myrna Judith Limas Gómez
+
+  </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- ERROR -->
+<!-- ========================= -->
+
+<div id="error" class="error">
+
+  <div class="errorBox">
+
+    <div class="logo">🐺</div>
+
+    <h2>SIEE 3017</h2>
+
+    <p id="mensajeError">
+      No se encontró información del alumno.
+    </p>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/*
+==========================================================
+FUENTE PÚBLICA DE DATOS
+==========================================================
+*/
+
+const URL_DATOS =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vS6j7xvJqcX6dBLtfmx6Dl3aC1YUc26SSVAWpqpwFi1V2P8-D2sjbP5ED1e57wb5KZXrVrWrPTH7Tt5/pub?gid=1169023089&single=true&output=csv";
+
+
+/*
+==========================================================
+OBTENER ID DEL ALUMNO
+==========================================================
+*/
+
+const parametros =
+new URLSearchParams(window.location.search);
+
+const id =
+parametros.get("id");
+
+
+/*
+==========================================================
+SI NO HAY ID
+==========================================================
+*/
+
+if (!id) {
+
+  document.getElementById("cargando").style.display = "none";
+
+  document.getElementById("error").style.display = "flex";
+
+  document.getElementById("mensajeError").textContent =
+  "No se recibió el identificador del alumno.";
+
+}
+
+
+/*
+==========================================================
+BUSCAR ALUMNO
+==========================================================
+*/
+
+else {
+
+  fetch(URL_DATOS)
+
+    .then(function(respuesta) {
+
+      if (!respuesta.ok) {
+
+        throw new Error(
+          "No se pudo consultar la información."
+        );
+
+      }
+
+      return respuesta.text();
+
+    })
+
+    .then(function(texto) {
+
+      const filas =
+      texto.trim().split(/\r?\n/);
+
+      if (filas.length < 2) {
+
+        throw new Error(
+          "La tabla pública está vacía."
+        );
+
+      }
+
+
+      /*
+      ================================================
+      LECTOR SIMPLE DE CSV
+      ================================================
+      */
+
+      function separarCSV(linea) {
+
+        const resultado = [];
+
+        let actual = "";
+
+        let comillas = false;
+
+        for (let i = 0; i < linea.length; i++) {
+
+          const caracter = linea[i];
+
+          if (caracter === '"') {
+
+            comillas = !comillas;
+
+          }
+
+          else if (
+            caracter === "," &&
+            !comillas
+          ) {
+
+            resultado.push(
+              actual.replace(/^"|"$/g, "")
+            );
+
+            actual = "";
+
+          }
+
+          else {
+
+            actual += caracter;
+
+          }
+
+        }
+
+        resultado.push(
+          actual.replace(/^"|"$/g, "")
+        );
+
+        return resultado;
+
+      }
+
+
+      const encabezados =
+      separarCSV(filas[0]);
+
+
+      let alumnoEncontrado = null;
+
+
+      for (
+        let i = 1;
+        i < filas.length;
+        i++
+      ) {
+
+        const datos =
+        separarCSV(filas[i]);
+
+
+        if (
+          datos[0] &&
+          datos[0].trim().toLowerCase() ===
+          id.trim().toLowerCase()
+        ) {
+
+          alumnoEncontrado = datos;
+
+          break;
+
+        }
+
+      }
+
+
+      /*
+      ================================================
+      NO ENCONTRADO
+      ================================================
+      */
+
+      if (!alumnoEncontrado) {
+
+        document.getElementById("cargando").style.display =
+        "none";
+
+        document.getElementById("error").style.display =
+        "flex";
+
+        document.getElementById("mensajeError").textContent =
+        "No se encontró información para el alumno: " + id;
+
+        return;
+
+      }
+
+
+      /*
+      ================================================
+      DATOS
+      ================================================
+      */
+
+      const idAlumno =
+      alumnoEncontrado[0];
+
+      const nombre =
+      alumnoEncontrado[1];
+
+      const promedio =
+      alumnoEncontrado[2];
+
+      const matepesos =
+      alumnoEncontrado[3];
+
+
+      /*
+      ================================================
+      ESTADO
+      ================================================
+      */
+
+      const numeroPromedio =
+      parseFloat(
+        promedio.replace(",", ".")
+      );
+
+
+      let estado = "";
+
+      if (isNaN(numeroPromedio)) {
+
+        estado = "SIN CALIFICACIÓN";
+
+      }
+
+      else if (numeroPromedio >= 8) {
+
+        estado = "🟢 APROBADO";
+
+      }
+
+      else if (numeroPromedio >= 6) {
+
+        estado = "🟡 REGULAR";
+
+      }
+
+      else {
+
+        estado = "🔴 EN RIESGO";
+
+      }
+
+
+      /*
+      ================================================
+      MOSTRAR PORTAL
+      ================================================
+      */
+
+      document.getElementById("alumno").textContent =
+      nombre.toUpperCase();
+
+      document.getElementById("promedio").textContent =
+      promedio;
+
+      document.getElementById("matepesos").textContent =
+      "$" + matepesos;
+
+      document.getElementById("estado").textContent =
+      estado;
+
+      document.getElementById("idAlumno").textContent =
+      idAlumno;
+
+
+      document.getElementById("cargando").style.display =
+      "none";
+
+      document.getElementById("portal").style.display =
+      "block";
+
+    })
+
+    .catch(function(error) {
+
+      document.getElementById("cargando").style.display =
+      "none";
+
+      document.getElementById("error").style.display =
+      "flex";
+
+      document.getElementById("mensajeError").textContent =
+      "No se pudo consultar la información. Intenta nuevamente.";
+
+      console.error(error);
+
+    });
+
+}
+
+</script>
 
 </body>
 </html>
