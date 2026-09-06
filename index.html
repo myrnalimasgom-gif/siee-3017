@@ -1,700 +1,302 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SIEE 3017</title>
 
 <style>
-
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100%;
-  font-family: Arial, sans-serif;
-  background: #f4f6f9;
-  color: #222;
-}
-
-
-/* =====================================================
-   CARGANDO
-   ===================================================== */
-
-#cargando {
-
-  position: fixed;
-  inset: 0;
-
-  background: #f4f6f9;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  align-items: center;
-
-  text-align: center;
-
-  padding: 25px;
-
-  z-index: 100;
-
-}
-
-.logo {
-
-  font-size: 60px;
-
-  margin-bottom: 10px;
-
-}
-
-.titulo {
-
-  color: #0b5394;
-
-  font-size: 28px;
-
-  font-weight: bold;
-
-  margin: 5px 0;
-
-}
-
-.subtitulo {
-
-  color: #555;
-
-  font-size: 17px;
-
-  line-height: 1.4;
-
-}
-
-.loader {
-
-  width: 45px;
-
-  height: 45px;
-
-  border: 5px solid #ddd;
-
-  border-top: 5px solid #0b5394;
-
-  border-radius: 50%;
-
-  animation: girar 1s linear infinite;
-
-  margin-top: 25px;
-
-}
-
-@keyframes girar {
-
-  100% {
-
-    transform: rotate(360deg);
-
+  * {
+    box-sizing: border-box;
   }
 
-}
-
-
-/* =====================================================
-   PORTAL
-   ===================================================== */
-
-#portal {
-
-  display: none;
-
-  width: 100%;
-
-  min-height: 100vh;
-
-  padding: 15px;
-
-}
-
-
-/* =====================================================
-   ENCABEZADO
-   ===================================================== */
-
-.encabezado {
-
-  background: white;
-
-  border-radius: 20px;
-
-  padding: 22px;
-
-  text-align: center;
-
-  box-shadow: 0 4px 15px rgba(0,0,0,.10);
-
-  max-width: 1100px;
-
-  margin: 0 auto 20px auto;
-
-}
-
-.encabezado .logo {
-
-  font-size: 50px;
-
-}
-
-.escuela {
-
-  color: #0b5394;
-
-  font-size: 20px;
-
-  font-weight: bold;
-
-  line-height: 1.35;
-
-}
-
-.sistema {
-
-  color: #555;
-
-  font-size: 14px;
-
-  margin-top: 7px;
-
-}
-
-.alumno {
-
-  font-size: 23px;
-
-  font-weight: bold;
-
-  margin-top: 18px;
-
-  color: #222;
-
-}
-
-
-/* =====================================================
-   TARJETAS PRINCIPALES
-   ===================================================== */
-
-.tarjetas {
-
-  display: grid;
-
-  grid-template-columns:
-  repeat(3, 1fr);
-
-  gap: 15px;
-
-  max-width: 1100px;
-
-  margin: 0 auto 20px auto;
-
-}
-
-.tarjeta {
-
-  background: white;
-
-  border-radius: 18px;
-
-  padding: 20px;
-
-  text-align: center;
-
-  box-shadow: 0 4px 15px rgba(0,0,0,.08);
-
-}
-
-.etiqueta {
-
-  font-size: 13px;
-
-  color: #777;
-
-  margin-bottom: 8px;
-
-  font-weight: bold;
-
-}
-
-.valor {
-
-  font-size: 27px;
-
-  font-weight: bold;
-
-}
-
-.promedio {
-
-  color: #0b5394;
-
-}
-
-.matepesos {
-
-  color: #38761d;
-
-}
-
-.estado {
-
-  color: #0b5394;
-
-}
-
-
-/* =====================================================
-   SECCIÓN DE DESEMPEÑO
-   ===================================================== */
-
-.seccion {
-
-  background: white;
-
-  border-radius: 20px;
-
-  box-shadow: 0 4px 15px rgba(0,0,0,.08);
-
-  max-width: 1100px;
-
-  margin: 0 auto 20px auto;
-
-  padding: 20px;
-
-}
-
-.seccionTitulo {
-
-  font-size: 20px;
-
-  font-weight: bold;
-
-  color: #0b5394;
-
-  margin-bottom: 15px;
-
-}
-
-
-/* =====================================================
-   TABLA
-   ===================================================== */
-
-.tablaContenedor {
-
-  width: 100%;
-
-  overflow-x: auto;
-
-  -webkit-overflow-scrolling: touch;
-
-  border-radius: 12px;
-
-}
-
-table {
-
-  border-collapse: collapse;
-
-  width: 100%;
-
-  min-width: 900px;
-
-  background: white;
-
-}
-
-th {
-
-  background: #0b5394;
-
-  color: white;
-
-  padding: 10px 8px;
-
-  font-size: 12px;
-
-  border: 1px solid #ddd;
-
-  white-space: nowrap;
-
-}
-
-td {
-
-  padding: 9px 8px;
-
-  border: 1px solid #ddd;
-
-  text-align: center;
-
-  font-size: 12px;
-
-  white-space: nowrap;
-
-}
-
-
-/* =====================================================
-   COLORES DE CALIFICACIONES
-   ===================================================== */
-
-.notaVerde {
-
-  background: #93c47d;
-
-  font-weight: bold;
-
-}
-
-.notaAmarilla {
-
-  background: #ffd966;
-
-  font-weight: bold;
-
-}
-
-.notaRoja {
-
-  background: #ff4d4d;
-
-  color: white;
-
-  font-weight: bold;
-
-}
-
-.notaVacia {
-
-  background: #eeeeee;
-
-  color: #888;
-
-}
-
-
-/* =====================================================
-   INFORMACIÓN
-   ===================================================== */
-
-.aviso {
-
-  max-width: 1100px;
-
-  margin: 0 auto 20px auto;
-
-  background: white;
-
-  border-radius: 18px;
-
-  padding: 18px;
-
-  text-align: center;
-
-  color: #555;
-
-  box-shadow: 0 4px 15px rgba(0,0,0,.06);
-
-  line-height: 1.5;
-
-}
-
-.pie {
-
-  text-align: center;
-
-  color: #777;
-
-  font-size: 12px;
-
-  padding: 15px 0 25px 0;
-
-}
-
-
-/* =====================================================
-   ERROR
-   ===================================================== */
-
-#error {
-
-  display: none;
-
-  min-height: 100vh;
-
-  justify-content: center;
-
-  align-items: center;
-
-  text-align: center;
-
-  padding: 25px;
-
-}
-
-.errorBox {
-
-  background: white;
-
-  max-width: 450px;
-
-  padding: 30px;
-
-  border-radius: 20px;
-
-  box-shadow: 0 4px 18px rgba(0,0,0,.12);
-
-}
-
-.errorBox h2 {
-
-  color: #0b5394;
-
-}
-
-
-/* =====================================================
-   MÓVIL
-   ===================================================== */
-
-@media (max-width: 700px) {
-
-  #portal {
-
-    padding: 10px;
-
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f1f7;
+    color: #333;
   }
 
-  .encabezado {
-
-    padding: 18px 12px;
-
+  header {
+    background: #6b3fa0;
+    color: white;
+    text-align: center;
+    padding: 22px 15px;
   }
 
-  .escuela {
-
-    font-size: 17px;
-
+  header h1 {
+    margin: 0;
+    font-size: 24px;
   }
 
-  .alumno {
+  header h2 {
+    margin: 7px 0 0;
+    font-size: 15px;
+    font-weight: normal;
+  }
 
-    font-size: 19px;
+  .contenedor {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 0 15px;
+  }
 
+  .buscador {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.10);
+    text-align: center;
+  }
+
+  .buscador h3 {
+    margin-top: 0;
+    color: #6b3fa0;
+  }
+
+  input {
+    width: 100%;
+    max-width: 400px;
+    padding: 13px;
+    border: 2px solid #d4c5e5;
+    border-radius: 10px;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  button {
+    margin-top: 12px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    background: #6b3fa0;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #573283;
+  }
+
+  #mensaje {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+
+  .datos-alumno {
+    display: none;
+    margin-top: 20px;
   }
 
   .tarjetas {
-
-    grid-template-columns: 1fr;
-
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
   }
 
-  .seccion {
-
-    padding: 12px;
-
+  .tarjeta {
+    background: white;
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
   }
 
-  th,
+  .tarjeta .titulo {
+    font-size: 13px;
+    color: #777;
+  }
+
+  .tarjeta .valor {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 7px;
+    color: #6b3fa0;
+  }
+
+  .estado {
+    font-size: 18px !important;
+  }
+
+  .tabla-contenedor {
+    background: white;
+    border-radius: 14px;
+    padding: 15px;
+    overflow-x: auto;
+    box-shadow: 0 3px 12px rgba(0,0,0,.10);
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1400px;
+  }
+
+  th {
+    background: #6b3fa0;
+    color: white;
+    padding: 9px;
+    border: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    white-space: nowrap;
+  }
+
   td {
-
-    font-size: 11px;
-
-    padding: 8px 6px;
-
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+    white-space: nowrap;
   }
 
-}
+  td.nombre {
+    text-align: left;
+    font-weight: bold;
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 1;
+  }
 
+  .verde {
+    background: #b6d7a8;
+    font-weight: bold;
+  }
 
-/* =====================================================
-   BARRA DE DESPLAZAMIENTO
-   ===================================================== */
+  .amarillo {
+    background: #ffe599;
+    font-weight: bold;
+  }
 
-.tablaContenedor::-webkit-scrollbar {
+  .rojo {
+    background: #ea9999;
+    font-weight: bold;
+  }
 
-  height: 10px;
+  .gris {
+    background: #eeeeee;
+  }
 
-}
+  footer {
+    text-align: center;
+    padding: 25px 15px;
+    color: #777;
+    font-size: 13px;
+  }
 
-.tablaContenedor::-webkit-scrollbar-thumb {
+  .cargando {
+    color: #6b3fa0;
+  }
 
-  background: #999;
+  .error {
+    color: #c00000;
+  }
 
-  border-radius: 10px;
+  @media (max-width: 600px) {
 
-}
+    header h1 {
+      font-size: 20px;
+    }
 
+    header h2 {
+      font-size: 13px;
+    }
+
+    .tarjetas {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .tarjeta .valor {
+      font-size: 20px;
+    }
+  }
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     PANTALLA DE CARGA
-     ===================================================== -->
-
-<div id="cargando">
-
-  <div class="logo">🐺</div>
-
-  <div class="titulo">
-    SIEE 3017
-  </div>
-
-  <div class="subtitulo">
-
-    Sistema Integral de Evaluación<br>
-    y Economía Escolar
-
-  </div>
-
-  <div class="loader"></div>
-
-  <p>
-    Consultando información del alumno...
-  </p>
-
-</div>
+<header>
+  <h1>🐺 SIEE 3017</h1>
+  <h2>
+    Escuela Secundaria Estatal "Gral. Francisco Villa" No. 3017
+  </h2>
+  <h2>
+    Sistema Integral de Evaluación y Economía Escolar (SIEE)
+  </h2>
+</header>
 
 
+<div class="contenedor">
 
-<!-- =====================================================
-     PORTAL
-     ===================================================== -->
+  <div class="buscador">
 
-<div id="portal">
+    <h3>Consulta de alumno</h3>
 
+    <p>
+      Ingresa el ID de tu hijo(a)
+    </p>
 
-  <!-- ENCABEZADO -->
+    <input
+      type="text"
+      id="idAlumno"
+      placeholder="Ejemplo: ALONSO-001"
+      autocomplete="off"
+    >
 
-  <div class="encabezado">
+    <br>
 
-    <div class="logo">
-      🐺
-    </div>
+    <button onclick="buscarAlumno()">
+      CONSULTAR
+    </button>
 
-    <div class="escuela">
-
-      Escuela Secundaria Estatal<br>
-
-      "Gral. Francisco Villa" No. 3017
-
-    </div>
-
-    <div class="sistema">
-
-      Sistema Integral de Evaluación y Economía Escolar
-
-    </div>
-
-    <div
-      id="alumno"
-      class="alumno">
-    </div>
+    <div id="mensaje"></div>
 
   </div>
 
 
+  <div id="datosAlumno" class="datos-alumno">
 
-  <!-- TARJETAS -->
+    <div class="tarjetas">
 
-  <div class="tarjetas">
-
-
-    <div class="tarjeta">
-
-      <div class="etiqueta">
-        PROMEDIO FINAL
+      <div class="tarjeta">
+        <div class="titulo">ALUMNO</div>
+        <div class="valor" id="nombreAlumno">---</div>
       </div>
 
-      <div
-        id="promedio"
-        class="valor promedio">
+      <div class="tarjeta">
+        <div class="titulo">PROMEDIO FINAL</div>
+        <div class="valor" id="promedioFinal">---</div>
       </div>
 
-    </div>
-
-
-    <div class="tarjeta">
-
-      <div class="etiqueta">
-        MATEPESOS
+      <div class="tarjeta">
+        <div class="titulo">MATEPESOS</div>
+        <div class="valor" id="matepesos">---</div>
       </div>
 
-      <div
-        id="matepesos"
-        class="valor matepesos">
+      <div class="tarjeta">
+        <div class="titulo">ESTADO</div>
+        <div class="valor estado" id="estadoAlumno">---</div>
       </div>
 
     </div>
 
 
-    <div class="tarjeta">
+    <div class="tabla-contenedor">
 
-      <div class="etiqueta">
-        ESTADO ACADÉMICO
-      </div>
+      <h3>📊 Desempeño académico</h3>
 
-      <div
-        id="estado"
-        class="valor estado">
-      </div>
+      <table id="tablaAlumno">
 
-    </div>
-
-
-  </div>
-
-
-
-  <!-- DESEMPEÑO -->
-
-  <div class="seccion">
-
-    <div class="seccionTitulo">
-
-      📚 Desempeño académico
-
-    </div>
-
-
-    <div class="tablaContenedor">
-
-      <table id="tabla">
-
-        <thead id="encabezados">
+        <thead>
+          <tr id="encabezados"></tr>
         </thead>
 
-        <tbody id="datos">
+        <tbody>
+          <tr id="filaAlumno"></tr>
         </tbody>
 
       </table>
@@ -703,758 +305,19 @@ td {
 
   </div>
 
-
-
-  <!-- AVISO -->
-
-  <div class="aviso">
-
-    <b>📊 Consulta de desempeño escolar</b>
-
-    <br>
-
-    Consulta las actividades, evaluaciones,
-    promedios y resultados registrados.
-
-    <br><br>
-
-    <small>
-
-      Esta información corresponde al registro
-      académico del alumno.
-
-    </small>
-
-  </div>
-
-
-
-  <!-- PIE -->
-
-  <div class="pie">
-
-    Profesora Myrna Judith Limas Gómez
-
-  </div>
-
-
 </div>
 
 
-
-<!-- =====================================================
-     ERROR
-     ===================================================== -->
-
-<div id="error">
-
-  <div class="errorBox">
-
-    <div class="logo">
-      🐺
-    </div>
-
-    <h2>
-      SIEE 3017
-    </h2>
-
-    <p id="mensajeError">
-
-      No se encontró información del alumno.
-
-    </p>
-
-  </div>
-
-</div>
-
+<footer>
+  Profesora Myrna Judith Limas Gómez
+</footer>
 
 
 <script>
 
-
 /* =====================================================
-   FUENTE DE DATOS
+   DATOS DE GOOGLE SHEETS
    ===================================================== */
 
 const URL_DATOS =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vS6j7xvJqcX6dBLtfmx6Dl3aC1YUc26SSVAWpqpwFi1V2P8-D2sjbP5ED1e57wb5KZXrVrWrPTH7Tt5/pub?gid=1047865760&single=true&output=csv";
-
-
-
-/* =====================================================
-   OBTENER ID
-   ===================================================== */
-
-const parametros =
-new URLSearchParams(
-  window.location.search
-);
-
-const id =
-parametros.get("id");
-
-
-
-/* =====================================================
-   FUNCIÓN CSV
-   ===================================================== */
-
-function separarCSV(linea) {
-
-  const resultado = [];
-
-  let actual = "";
-
-  let comillas = false;
-
-
-  for (
-    let i = 0;
-    i < linea.length;
-    i++
-  ) {
-
-    const caracter = linea[i];
-
-
-    if (caracter === '"') {
-
-      if (
-        comillas &&
-        linea[i + 1] === '"'
-      ) {
-
-        actual += '"';
-
-        i++;
-
-      }
-
-      else {
-
-        comillas = !comillas;
-
-      }
-
-    }
-
-
-    else if (
-      caracter === "," &&
-      !comillas
-    ) {
-
-      resultado.push(actual);
-
-      actual = "";
-
-    }
-
-
-    else {
-
-      actual += caracter;
-
-    }
-
-  }
-
-
-  resultado.push(actual);
-
-  return resultado;
-
-}
-
-
-
-/* =====================================================
-   MOSTRAR ERROR
-   ===================================================== */
-
-function mostrarError(mensaje) {
-
-  document
-    .getElementById("cargando")
-    .style.display = "none";
-
-
-  document
-    .getElementById("error")
-    .style.display = "flex";
-
-
-  document
-    .getElementById("mensajeError")
-    .textContent = mensaje;
-
-}
-
-
-
-/* =====================================================
-   SI NO HAY ID
-   ===================================================== */
-
-if (!id) {
-
-  mostrarError(
-    "No se recibió el identificador del alumno."
-  );
-
-}
-
-
-
-/* =====================================================
-   CONSULTAR DATOS
-   ===================================================== */
-
-else {
-
-  fetch(URL_DATOS)
-
-    .then(function(respuesta) {
-
-      if (!respuesta.ok) {
-
-        throw new Error(
-          "No se pudo consultar la información."
-        );
-
-      }
-
-      return respuesta.text();
-
-    })
-
-
-    .then(function(texto) {
-
-
-      const filas =
-      texto
-        .trim()
-        .split(/\r?\n/);
-
-
-      if (filas.length < 2) {
-
-        throw new Error(
-          "No hay información publicada."
-        );
-
-      }
-
-
-      const encabezados =
-      separarCSV(filas[0]);
-
-
-      let filaAlumno = null;
-
-
-      /*
-      ===============================================
-      BUSCAR POR ID
-      ===============================================
-      */
-
-      for (
-        let i = 1;
-        i < filas.length;
-        i++
-      ) {
-
-        const fila =
-        separarCSV(filas[i]);
-
-
-        if (
-          fila[0] &&
-          fila[0]
-            .trim()
-            .toLowerCase() ===
-          id
-            .trim()
-            .toLowerCase()
-        ) {
-
-          filaAlumno = fila;
-
-          break;
-
-        }
-
-      }
-
-
-      /*
-      ===============================================
-      SI NO ENCONTRAMOS ALUMNO
-      ===============================================
-      */
-
-      if (!filaAlumno) {
-
-        mostrarError(
-          "No se encontró información para el identificador: "
-          + id
-        );
-
-        return;
-
-      }
-
-
-      /*
-      ===============================================
-      NOMBRE
-      ===============================================
-      */
-
-      const nombre =
-      filaAlumno[1] ||
-      "ALUMNO";
-
-
-      document
-        .getElementById("alumno")
-        .textContent =
-        nombre.toUpperCase();
-
-
-
-      /*
-      ===============================================
-      BUSCAR PROMEDIO FINAL
-      ===============================================
-      */
-
-      let promedio = "";
-
-      let posicionPromedio = -1;
-
-
-      for (
-        let i = 0;
-        i < encabezados.length;
-        i++
-      ) {
-
-        const encabezado =
-        encabezados[i]
-          .toString()
-          .trim()
-          .toUpperCase();
-
-
-        if (
-          encabezado === "PROM FINAL" ||
-          encabezado === "PROMEDIO FINAL" ||
-          encabezado === "PROM"
-        ) {
-
-          promedio =
-          filaAlumno[i];
-
-          posicionPromedio = i;
-
-          break;
-
-        }
-
-      }
-
-
-      /*
-      ===============================================
-      SI NO LO ENCONTRÓ POR ENCABEZADO
-      ===============================================
-      */
-
-      if (
-        !promedio &&
-        filaAlumno.length > 0
-      ) {
-
-        /*
-        CA es la columna 79
-        en la estructura original.
-        Como A = 1:
-        CA = índice 78.
-        */
-
-        if (filaAlumno[78]) {
-
-          promedio =
-          filaAlumno[78];
-
-        }
-
-      }
-
-
-
-      /*
-      ===============================================
-      MATEPESOS
-      ===============================================
-      */
-
-      let matepesos = "";
-
-
-      for (
-        let i = 0;
-        i < encabezados.length;
-        i++
-      ) {
-
-        const encabezado =
-        encabezados[i]
-          .toString()
-          .trim()
-          .toUpperCase();
-
-
-        if (
-          encabezado === "CF" ||
-          encabezado === "SAL PROM"
-        ) {
-
-          matepesos =
-          filaAlumno[i];
-
-          break;
-
-        }
-
-      }
-
-
-      /*
-      ===============================================
-      FALLBACK MATEPESOS
-      ===============================================
-      */
-
-      if (
-        !matepesos &&
-        filaAlumno[83]
-      ) {
-
-        matepesos =
-        filaAlumno[83];
-
-      }
-
-
-
-      /*
-      ===============================================
-      MOSTRAR PROMEDIO
-      ===============================================
-      */
-
-      document
-        .getElementById("promedio")
-        .textContent =
-        promedio || "—";
-
-
-
-      /*
-      ===============================================
-      MOSTRAR MATEPESOS
-      ===============================================
-      */
-
-      document
-        .getElementById("matepesos")
-        .textContent =
-        matepesos
-        ? "$" + matepesos
-        : "—";
-
-
-
-      /*
-      ===============================================
-      ESTADO
-      ===============================================
-      */
-
-      let numeroPromedio =
-      parseFloat(
-        String(promedio)
-          .replace(",", ".")
-      );
-
-
-      let estado = "";
-
-
-      if (isNaN(numeroPromedio)) {
-
-        estado =
-        "SIN CALIFICACIÓN";
-
-      }
-
-      else if (
-        numeroPromedio >= 8
-      ) {
-
-        estado =
-        "🟢 APROBADO";
-
-      }
-
-      else if (
-        numeroPromedio >= 6
-      ) {
-
-        estado =
-        "🟡 REGULAR";
-
-      }
-
-      else {
-
-        estado =
-        "🔴 EN RIESGO";
-
-      }
-
-
-      document
-        .getElementById("estado")
-        .textContent =
-        estado;
-
-
-
-      /*
-      ===============================================
-      CREAR TABLA COMPLETA
-      ===============================================
-      */
-
-      const filaEncabezados =
-      document.getElementById(
-        "encabezados"
-      );
-
-
-      const filaDatos =
-      document.getElementById(
-        "datos"
-      );
-
-
-      filaEncabezados.innerHTML = "";
-
-      filaDatos.innerHTML = "";
-
-
-
-      /*
-      -----------------------------------------------
-      ENCABEZADOS
-      -----------------------------------------------
-      */
-
-      const trEncabezado =
-      document.createElement("tr");
-
-
-      encabezados.forEach(
-        function(encabezado) {
-
-          const th =
-          document.createElement("th");
-
-          th.textContent =
-          encabezado || "—";
-
-          trEncabezado.appendChild(th);
-
-        }
-      );
-
-
-      filaEncabezados
-        .appendChild(trEncabezado);
-
-
-
-      /*
-      -----------------------------------------------
-      DATOS
-      -----------------------------------------------
-      */
-
-      const trDatos =
-      document.createElement("tr");
-
-
-      filaAlumno.forEach(
-        function(valor, indice) {
-
-          const td =
-          document.createElement("td");
-
-
-          const texto =
-          valor == null
-          ? ""
-          : valor.toString().trim();
-
-
-          td.textContent =
-          texto || "—";
-
-
-          /*
-          -----------------------------------------
-          SEMÁFORO
-          -----------------------------------------
-          */
-
-          const numero =
-          parseFloat(
-            texto.replace(",", ".")
-          );
-
-
-          /*
-          No coloreamos:
-          - ID
-          - nombre
-          - texto
-          - cantidades económicas
-          */
-
-          const encabezado =
-          encabezados[indice]
-          ? encabezados[indice]
-              .toString()
-              .toUpperCase()
-          : "";
-
-
-          const esMatepesos =
-          encabezado.includes("$") ||
-          encabezado.includes("SAL PROM") ||
-          encabezado.includes("MATEPESOS");
-
-
-          const esNombre =
-          indice === 1;
-
-
-          const pareceCalificacion =
-          !isNaN(numero) &&
-          numero >= 0 &&
-          numero <= 10 &&
-          !esMatepesos &&
-          !esNombre;
-
-
-          if (texto === "") {
-
-            td.classList.add(
-              "notaVacia"
-            );
-
-          }
-
-          else if (
-            pareceCalificacion &&
-            numero >= 8
-          ) {
-
-            td.classList.add(
-              "notaVerde"
-            );
-
-          }
-
-          else if (
-            pareceCalificacion &&
-            numero >= 6
-          ) {
-
-            td.classList.add(
-              "notaAmarilla"
-            );
-
-          }
-
-          else if (
-            pareceCalificacion &&
-            numero < 6
-          ) {
-
-            td.classList.add(
-              "notaRoja"
-            );
-
-          }
-
-
-          trDatos.appendChild(td);
-
-        }
-      );
-
-
-      filaDatos
-        .appendChild(trDatos);
-
-
-
-      /*
-      ===============================================
-      MOSTRAR PORTAL
-      ===============================================
-      */
-
-      document
-        .getElementById("cargando")
-        .style.display = "none";
-
-
-      document
-        .getElementById("portal")
-        .style.display = "block";
-
-    })
-
-
-    /*
-    ===============================================
-    ERROR DE CONEXIÓN
-    ===============================================
-    */
-
-    .catch(function(error) {
-
-      console.error(error);
-
-
-      mostrarError(
-        "No se pudo consultar la información del alumno. Intenta nuevamente."
-      );
-
-    });
-
-}
-
-</script>
-
-</body>
-
-</html>
+  "
