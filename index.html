@@ -332,25 +332,38 @@ const GID =
 
 
 /*
-   Posiciones reales dentro de PUBLICO_ALONSO
+   IMPORTANTE:
 
-   A  = 0  → ID
-   B  = 1  → NOMBRE DEL ALUMNO
-   CA = 78 → PROM FINAL
-   CF = 83 → SAL PROM
+   La hoja original de la alumna tiene:
+
+   A2  = NOMBRE
+   CA2 = PROMEDIO FINAL
+   CF2 = MATEPESOS
+
+   Pero PUBLICO_ALONSO tiene una columna adicional
+   A para el ID.
+
+   Por eso, dentro de PUBLICO_ALONSO:
+
+   A  = ID
+   B  = NOMBRE
+   CB = PROMEDIO FINAL
+   CG = MATEPESOS
 */
 
 const COLUMNA_ID = 0;
 const COLUMNA_NOMBRE = 1;
-const COLUMNA_PROMEDIO = 78;
-const COLUMNA_SALDO = 83;
+const COLUMNA_PROMEDIO = 79;
+const COLUMNA_MATEPESOS = 84;
+
+const TOTAL_COLUMNAS = 85;
 
 
 let datosGoogle = null;
 
 
 /* =====================================================
-   MOSTRAR MENSAJES
+   MOSTRAR MENSAJE
    ===================================================== */
 
 function mostrarMensaje(texto, clase) {
@@ -368,7 +381,7 @@ function mostrarMensaje(texto, clase) {
 
 
 /* =====================================================
-   RESPUESTA DE GOOGLE
+   GOOGLE RESPONDE
    ===================================================== */
 
 function recibirDatos(respuesta) {
@@ -401,7 +414,7 @@ function recibirDatos(respuesta) {
 
 
 /* =====================================================
-   CARGAR DATOS DE GOOGLE SHEETS
+   CARGAR DATOS
    ===================================================== */
 
 function cargarDatos() {
@@ -461,7 +474,9 @@ function buscarAlumno() {
 
 
   const campo =
-    document.getElementById("idAlumno");
+    document.getElementById(
+      "idAlumno"
+    );
 
 
   const id =
@@ -510,13 +525,9 @@ function buscarAlumno() {
       filas[i].c || [];
 
 
-    const celdaID =
-      fila[COLUMNA_ID];
-
-
     const valorID =
       obtenerTexto(
-        celdaID
+        fila[COLUMNA_ID]
       )
       .trim()
       .toUpperCase();
@@ -545,7 +556,9 @@ function buscarAlumno() {
 
 
     document
-      .getElementById("datosAlumno")
+      .getElementById(
+        "datosAlumno"
+      )
       .style.display =
         "none";
 
@@ -563,7 +576,7 @@ function buscarAlumno() {
 
 
 /* =====================================================
-   MOSTRAR INFORMACIÓN DEL ALUMNO
+   MOSTRAR ALUMNO
    ===================================================== */
 
 function mostrarAlumno(
@@ -572,11 +585,15 @@ function mostrarAlumno(
 ) {
 
   const encabezados =
-    document.getElementById("encabezados");
+    document.getElementById(
+      "encabezados"
+    );
 
 
   const filaAlumno =
-    document.getElementById("filaAlumno");
+    document.getElementById(
+      "filaAlumno"
+    );
 
 
   encabezados.innerHTML =
@@ -587,7 +604,7 @@ function mostrarAlumno(
 
 
   /* ==========================================
-     DATOS PRINCIPALES
+     DATOS REALES
      ========================================== */
 
   const nombre =
@@ -602,9 +619,9 @@ function mostrarAlumno(
     );
 
 
-  const saldo =
+  const matepesos =
     obtenerTexto(
-      fila[COLUMNA_SALDO]
+      fila[COLUMNA_MATEPESOS]
     );
 
 
@@ -613,7 +630,9 @@ function mostrarAlumno(
      ========================================== */
 
   document
-    .getElementById("nombreAlumno")
+    .getElementById(
+      "nombreAlumno"
+    )
     .textContent =
       nombre || "Alumno";
 
@@ -623,7 +642,9 @@ function mostrarAlumno(
      ========================================== */
 
   document
-    .getElementById("promedioFinal")
+    .getElementById(
+      "promedioFinal"
+    )
     .textContent =
       promedio || "---";
 
@@ -633,9 +654,11 @@ function mostrarAlumno(
      ========================================== */
 
   document
-    .getElementById("matepesos")
+    .getElementById(
+      "matepesos"
+    )
     .textContent =
-      saldo || "---";
+      matepesos || "---";
 
 
   /* ==========================================
@@ -706,13 +729,9 @@ function mostrarAlumno(
      TABLA COMPLETA
      ========================================== */
 
-  const totalColumnas =
-    84;
-
-
   for (
     let i = 0;
-    i < totalColumnas;
+    i < TOTAL_COLUMNAS;
     i++
   ) {
 
@@ -723,12 +742,6 @@ function mostrarAlumno(
     let encabezado =
       columna.label || "";
 
-
-    /*
-       Si Google no entrega el texto
-       del encabezado, usamos la
-       letra de la columna.
-    */
 
     if (!encabezado) {
 
@@ -805,7 +818,9 @@ function mostrarAlumno(
      ========================================== */
 
   document
-    .getElementById("datosAlumno")
+    .getElementById(
+      "datosAlumno"
+    )
     .style.display =
       "block";
 
@@ -819,14 +834,12 @@ function mostrarAlumno(
 
 
 /* =====================================================
-   OBTENER TEXTO DE UNA CELDA
+   OBTENER TEXTO
    ===================================================== */
 
 function obtenerTexto(celda) {
 
-  if (
-    !celda
-  ) {
+  if (!celda) {
 
     return "";
 
@@ -863,14 +876,12 @@ function obtenerTexto(celda) {
 
 
 /* =====================================================
-   OBTENER VALOR REAL DE UNA CELDA
+   OBTENER VALOR REAL
    ===================================================== */
 
 function obtenerValor(celda) {
 
-  if (
-    !celda
-  ) {
+  if (!celda) {
 
     return "";
 
@@ -1005,7 +1016,7 @@ function aplicarSemaforo(
 
 
 /* =====================================================
-   BOTÓN CONSULTAR
+   BOTÓN
    ===================================================== */
 
 document
@@ -1019,7 +1030,7 @@ document
 
 
 /* =====================================================
-   ENTER EN EL CUADRO
+   ENTER
    ===================================================== */
 
 document
