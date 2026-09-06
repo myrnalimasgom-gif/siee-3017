@@ -320,42 +320,63 @@ footer {
 
 <script>
 
+/* =====================================================
+   CONFIGURACIÓN
+   ===================================================== */
+
 const SPREADSHEET_ID =
   "1ZCgGSCttmO2Dog-g6p5pDn-buNmsmWo9tM5Mgsf-aC0";
 
 const GID =
   "1047865760";
 
+
+/*
+   Posiciones reales dentro de PUBLICO_ALONSO
+
+   A  = 0  → ID
+   B  = 1  → NOMBRE DEL ALUMNO
+   CA = 78 → PROM FINAL
+   CF = 83 → SAL PROM
+*/
+
+const COLUMNA_ID = 0;
+const COLUMNA_NOMBRE = 1;
+const COLUMNA_PROMEDIO = 78;
+const COLUMNA_SALDO = 83;
+
+
 let datosGoogle = null;
 
 
-/* ==========================================
-   MENSAJE
-   ========================================== */
+/* =====================================================
+   MOSTRAR MENSAJES
+   ===================================================== */
 
 function mostrarMensaje(texto, clase) {
 
   const mensaje =
     document.getElementById("mensaje");
 
-  mensaje.textContent = texto;
+  mensaje.textContent =
+    texto;
 
-  mensaje.className = clase || "";
+  mensaje.className =
+    clase || "";
 
 }
 
 
-/* ==========================================
-   GOOGLE RESPONDE AQUÍ
-   ========================================== */
+/* =====================================================
+   RESPUESTA DE GOOGLE
+   ===================================================== */
 
 function recibirDatos(respuesta) {
 
-  console.log("Respuesta de Google:", respuesta);
-
   if (
     !respuesta ||
-    !respuesta.table
+    !respuesta.table ||
+    !respuesta.table.rows
   ) {
 
     mostrarMensaje(
@@ -366,7 +387,10 @@ function recibirDatos(respuesta) {
     return;
   }
 
-  datosGoogle = respuesta.table;
+
+  datosGoogle =
+    respuesta.table;
+
 
   mostrarMensaje(
     "Información lista. Escribe el ID y pulsa CONSULTAR.",
@@ -376,9 +400,9 @@ function recibirDatos(respuesta) {
 }
 
 
-/* ==========================================
-   CARGAR GOOGLE SHEETS
-   ========================================== */
+/* =====================================================
+   CARGAR DATOS DE GOOGLE SHEETS
+   ===================================================== */
 
 function cargarDatos() {
 
@@ -387,35 +411,46 @@ function cargarDatos() {
     "cargando"
   );
 
+
   const script =
     document.createElement("script");
+
 
   const url =
     "https://docs.google.com/spreadsheets/d/" +
     SPREADSHEET_ID +
-    "/gviz/tq?gid=" +
-    GID +
+    "/gviz/tq" +
+    "?gid=" + GID +
+    "&headers=1" +
+    "&tq=select%20*" +
     "&tqx=responseHandler%3ArecibirDatos";
 
-  script.src = url;
 
-  script.onerror = function() {
+  script.src =
+    url;
 
-    mostrarMensaje(
-      "No se pudo conectar con la información pública.",
-      "error"
-    );
 
-  };
+  script.onerror =
+    function() {
 
-  document.head.appendChild(script);
+      mostrarMensaje(
+        "No se pudo conectar con la información pública.",
+        "error"
+      );
+
+    };
+
+
+  document.head.appendChild(
+    script
+  );
 
 }
 
 
-/* ==========================================
+/* =====================================================
    BUSCAR ALUMNO
-   ========================================== */
+   ===================================================== */
 
 function buscarAlumno() {
 
@@ -424,13 +459,16 @@ function buscarAlumno() {
     "cargando"
   );
 
+
   const campo =
     document.getElementById("idAlumno");
+
 
   const id =
     campo.value
       .trim()
       .toUpperCase();
+
 
   if (!id) {
 
@@ -442,38 +480,54 @@ function buscarAlumno() {
     return;
   }
 
+
   if (!datosGoogle) {
 
     mostrarMensaje(
-      "La información todavía está cargando. Espera unos segundos y vuelve a pulsar CONSULTAR.",
+      "La información todavía está cargando. Espera unos segundos y vuelve a consultar.",
       "cargando"
     );
 
     return;
   }
 
+
   const filas =
     datosGoogle.rows || [];
 
-  let encontrada = null;
+
+  let filaEncontrada =
+    null;
 
 
-  for (let i = 0; i < filas.length; i++) {
+  for (
+    let i = 0;
+    i < filas.length;
+    i++
+  ) {
 
-    const celdas =
+    const fila =
       filas[i].c || [];
 
-    const valor =
-      celdas[0] &&
-      celdas[0].v != null
-        ? String(celdas[0].v)
-            .trim()
-            .toUpperCase()
-        : "";
 
-    if (valor === id) {
+    const celdaID =
+      fila[COLUMNA_ID];
 
-      encontrada = celdas;
+
+    const valorID =
+      obtenerTexto(
+        celdaID
+      )
+      .trim()
+      .toUpperCase();
+
+
+    if (
+      valorID === id
+    ) {
+
+      filaEncontrada =
+        fila;
 
       break;
 
@@ -482,141 +536,81 @@ function buscarAlumno() {
   }
 
 
-  if (!encontrada) {
+  if (!filaEncontrada) {
 
     mostrarMensaje(
       "No se encontró el ID " + id + ".",
       "error"
     );
 
+
     document
       .getElementById("datosAlumno")
-      .style.display = "none";
+      .style.display =
+        "none";
+
 
     return;
   }
 
 
   mostrarAlumno(
-    datosGoogle.cols,
-    encontrada
+    datosGoogle.cols || [],
+    filaEncontrada
   );
 
 }
 
 
-/* ==========================================
-   MOSTRAR INFORMACIÓN
-   ========================================== */
+/* =====================================================
+   MOSTRAR INFORMACIÓN DEL ALUMNO
+   ===================================================== */
 
-function mostrarAlumno(columnas, fila) {
+function mostrarAlumno(
+  columnas,
+  fila
+) {
 
   const encabezados =
     document.getElementById("encabezados");
 
+
   const filaAlumno =
     document.getElementById("filaAlumno");
 
-  encabezados.innerHTML = "";
 
-  filaAlumno.innerHTML = "";
+  encabezados.innerHTML =
+    "";
 
-
-  let nombre = "";
-
-  let promedio = "";
-
-  let saldo = "";
+  filaAlumno.innerHTML =
+    "";
 
 
-  for (
-    let i = 0;
-    i < columnas.length;
-    i++
-  ) {
+  /* ==========================================
+     DATOS PRINCIPALES
+     ========================================== */
 
-    const columna =
-      columnas[i] || {};
-
-    const encabezado =
-      columna.label || "";
-
-
-    const celda =
-      fila[i] || {};
-
-    const valor =
-      celda.v != null
-        ? celda.v
-        : "";
-
-    const texto =
-      celda.f != null
-        ? celda.f
-        : valor;
-
-
-    const th =
-      document.createElement("th");
-
-    th.textContent =
-      encabezado;
-
-    encabezados.appendChild(th);
-
-
-    const td =
-      document.createElement("td");
-
-    td.textContent =
-      texto;
-
-    aplicarSemaforo(
-      td,
-      valor
+  const nombre =
+    obtenerTexto(
+      fila[COLUMNA_NOMBRE]
     );
 
 
-    const nombreEncabezado =
-      encabezado
-        .toString()
-        .toUpperCase();
+  const promedio =
+    obtenerTexto(
+      fila[COLUMNA_PROMEDIO]
+    );
 
 
-    if (
-      nombreEncabezado
-        .includes("NOMBRE")
-    ) {
-
-      nombre = texto;
-
-    }
+  const saldo =
+    obtenerTexto(
+      fila[COLUMNA_SALDO]
+    );
 
 
-    if (
-      nombreEncabezado
-        .includes("PROM FINAL")
-    ) {
-
-      promedio = texto;
-
-    }
-
-
-    if (
-      nombreEncabezado
-        .includes("SAL PROM")
-    ) {
-
-      saldo = texto;
-
-    }
-
-
-    filaAlumno.appendChild(td);
-
-  }
-
+  /* ==========================================
+     TARJETA NOMBRE
+     ========================================== */
 
   document
     .getElementById("nombreAlumno")
@@ -624,11 +618,19 @@ function mostrarAlumno(columnas, fila) {
       nombre || "Alumno";
 
 
+  /* ==========================================
+     TARJETA PROMEDIO
+     ========================================== */
+
   document
     .getElementById("promedioFinal")
     .textContent =
       promedio || "---";
 
+
+  /* ==========================================
+     TARJETA MATEPESOS
+     ========================================== */
 
   document
     .getElementById("matepesos")
@@ -636,7 +638,11 @@ function mostrarAlumno(columnas, fila) {
       saldo || "---";
 
 
-  const numero =
+  /* ==========================================
+     ESTADO
+     ========================================== */
+
+  const numeroPromedio =
     parseFloat(
       String(promedio)
         .replace(",", ".")
@@ -644,17 +650,26 @@ function mostrarAlumno(columnas, fila) {
 
 
   const estado =
-    document.getElementById("estadoAlumno");
+    document.getElementById(
+      "estadoAlumno"
+    );
 
 
-  if (isNaN(numero)) {
+  if (
+    isNaN(numeroPromedio)
+  ) {
 
     estado.textContent =
       "---";
 
+    estado.style.color =
+      "#6b3fa0";
+
   }
 
-  else if (numero >= 8) {
+  else if (
+    numeroPromedio >= 8
+  ) {
 
     estado.textContent =
       "🟢 APROBADO";
@@ -664,7 +679,9 @@ function mostrarAlumno(columnas, fila) {
 
   }
 
-  else if (numero >= 6) {
+  else if (
+    numeroPromedio >= 6
+  ) {
 
     estado.textContent =
       "🟡 REGULAR";
@@ -685,6 +702,108 @@ function mostrarAlumno(columnas, fila) {
   }
 
 
+  /* ==========================================
+     TABLA COMPLETA
+     ========================================== */
+
+  const totalColumnas =
+    84;
+
+
+  for (
+    let i = 0;
+    i < totalColumnas;
+    i++
+  ) {
+
+    const columna =
+      columnas[i] || {};
+
+
+    let encabezado =
+      columna.label || "";
+
+
+    /*
+       Si Google no entrega el texto
+       del encabezado, usamos la
+       letra de la columna.
+    */
+
+    if (!encabezado) {
+
+      encabezado =
+        obtenerLetraColumna(i);
+
+    }
+
+
+    const celda =
+      fila[i] || null;
+
+
+    const valor =
+      obtenerValor(
+        celda
+      );
+
+
+    const texto =
+      obtenerTexto(
+        celda
+      );
+
+
+    /* ======================================
+       ENCABEZADO
+       ====================================== */
+
+    const th =
+      document.createElement(
+        "th"
+      );
+
+
+    th.textContent =
+      encabezado;
+
+
+    encabezados.appendChild(
+      th
+    );
+
+
+    /* ======================================
+       DATO
+       ====================================== */
+
+    const td =
+      document.createElement(
+        "td"
+      );
+
+
+    td.textContent =
+      texto;
+
+
+    aplicarSemaforo(
+      td,
+      valor
+    );
+
+
+    filaAlumno.appendChild(
+      td
+    );
+
+  }
+
+
+  /* ==========================================
+     MOSTRAR RESULTADO
+     ========================================== */
+
   document
     .getElementById("datosAlumno")
     .style.display =
@@ -699,11 +818,129 @@ function mostrarAlumno(columnas, fila) {
 }
 
 
-/* ==========================================
-   SEMÁFORO
-   ========================================== */
+/* =====================================================
+   OBTENER TEXTO DE UNA CELDA
+   ===================================================== */
 
-function aplicarSemaforo(celda, valor) {
+function obtenerTexto(celda) {
+
+  if (
+    !celda
+  ) {
+
+    return "";
+
+  }
+
+
+  if (
+    celda.f !== undefined &&
+    celda.f !== null
+  ) {
+
+    return String(
+      celda.f
+    );
+
+  }
+
+
+  if (
+    celda.v !== undefined &&
+    celda.v !== null
+  ) {
+
+    return String(
+      celda.v
+    );
+
+  }
+
+
+  return "";
+
+}
+
+
+/* =====================================================
+   OBTENER VALOR REAL DE UNA CELDA
+   ===================================================== */
+
+function obtenerValor(celda) {
+
+  if (
+    !celda
+  ) {
+
+    return "";
+
+  }
+
+
+  if (
+    celda.v !== undefined &&
+    celda.v !== null
+  ) {
+
+    return celda.v;
+
+  }
+
+
+  return "";
+
+}
+
+
+/* =====================================================
+   LETRA DE COLUMNA
+   ===================================================== */
+
+function obtenerLetraColumna(numero) {
+
+  let resultado =
+    "";
+
+  let n =
+    numero + 1;
+
+
+  while (
+    n > 0
+  ) {
+
+    const residuo =
+      (n - 1) % 26;
+
+
+    resultado =
+      String.fromCharCode(
+        65 + residuo
+      ) +
+      resultado;
+
+
+    n =
+      Math.floor(
+        (n - 1) / 26
+      );
+
+  }
+
+
+  return resultado;
+
+}
+
+
+/* =====================================================
+   SEMÁFORO
+   ===================================================== */
+
+function aplicarSemaforo(
+  celda,
+  valor
+) {
 
   if (
     valor === "" ||
@@ -711,9 +948,12 @@ function aplicarSemaforo(celda, valor) {
     valor === undefined
   ) {
 
-    celda.classList.add("gris");
+    celda.classList.add(
+      "gris"
+    );
 
     return;
+
   }
 
 
@@ -724,52 +964,68 @@ function aplicarSemaforo(celda, valor) {
     );
 
 
-  if (isNaN(numero)) {
+  if (
+    isNaN(numero)
+  ) {
 
     return;
 
   }
 
 
-  if (numero >= 8) {
+  if (
+    numero >= 8
+  ) {
 
-    celda.classList.add("verde");
+    celda.classList.add(
+      "verde"
+    );
 
   }
 
-  else if (numero >= 6) {
+  else if (
+    numero >= 6
+  ) {
 
-    celda.classList.add("amarillo");
+    celda.classList.add(
+      "amarillo"
+    );
 
   }
 
   else {
 
-    celda.classList.add("rojo");
+    celda.classList.add(
+      "rojo"
+    );
 
   }
 
 }
 
 
-/* ==========================================
-   BOTÓN
-   ========================================== */
+/* =====================================================
+   BOTÓN CONSULTAR
+   ===================================================== */
 
 document
-  .getElementById("botonConsultar")
+  .getElementById(
+    "botonConsultar"
+  )
   .addEventListener(
     "click",
     buscarAlumno
   );
 
 
-/* ==========================================
-   ENTER
-   ========================================== */
+/* =====================================================
+   ENTER EN EL CUADRO
+   ===================================================== */
 
 document
-  .getElementById("idAlumno")
+  .getElementById(
+    "idAlumno"
+  )
   .addEventListener(
     "keydown",
     function(event) {
@@ -786,9 +1042,9 @@ document
   );
 
 
-/* ==========================================
+/* =====================================================
    INICIAR
-   ========================================== */
+   ===================================================== */
 
 cargarDatos();
 
