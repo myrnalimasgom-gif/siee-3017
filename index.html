@@ -3,1063 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>SIEE 3017</title>
-
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f1f7;
-  color: #333;
-}
-
-header {
-  background: #6b3fa0;
-  color: white;
-  text-align: center;
-  padding: 22px 15px;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 25px;
-}
-
-header h2 {
-  margin: 8px 0 0;
-  font-size: 15px;
-  font-weight: normal;
-}
-
-.contenedor {
-  max-width: 1200px;
-  margin: 25px auto;
-  padding: 0 15px;
-}
-
-.buscador {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 3px 12px rgba(0,0,0,.10);
-  text-align: center;
-}
-
-.buscador h3 {
-  margin-top: 0;
-  color: #6b3fa0;
-  font-size: 24px;
-}
-
-.buscador p {
-  font-size: 18px;
-}
-
-input {
-  width: 100%;
-  max-width: 420px;
-  padding: 15px;
-  border: 2px solid #6b3fa0;
-  border-radius: 10px;
-  font-size: 18px;
-  text-align: center;
-}
-
-button {
-  margin-top: 15px;
-  padding: 14px 30px;
-  border: none;
-  border-radius: 10px;
-  background: #6b3fa0;
-  color: white;
-  font-size: 17px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:active {
-  transform: scale(.97);
-}
-
-#mensaje {
-  margin-top: 18px;
-  min-height: 22px;
-  font-weight: bold;
-}
-
-.cargando {
-  color: #6b3fa0;
-}
-
-.error {
-  color: #c00000;
-}
-
-.exito {
-  color: #38761d;
-}
-
-.datos-alumno {
-  display: none;
-  margin-top: 25px;
-}
-
-.tarjetas {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.tarjeta {
-  background: white;
-  border-radius: 14px;
-  padding: 18px;
-  text-align: center;
-  box-shadow: 0 3px 10px rgba(0,0,0,.08);
-}
-
-.tarjeta .titulo {
-  font-size: 13px;
-  color: #777;
-}
-
-.tarjeta .valor {
-  font-size: 23px;
-  font-weight: bold;
-  margin-top: 8px;
-  color: #6b3fa0;
-}
-
-.tabla-contenedor {
-  background: white;
-  border-radius: 14px;
-  padding: 15px;
-  overflow-x: auto;
-  box-shadow: 0 3px 12px rgba(0,0,0,.10);
-}
-
-.tabla-contenedor h3 {
-  color: #6b3fa0;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-  min-width: 1400px;
-}
-
-th {
-  background: #6b3fa0;
-  color: white;
-  padding: 9px;
-  border: 1px solid #ddd;
-  white-space: nowrap;
-}
-
-td {
-  padding: 8px;
-  border: 1px solid #ddd;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.verde {
-  background: #b6d7a8;
-  font-weight: bold;
-}
-
-.amarillo {
-  background: #ffe599;
-  font-weight: bold;
-}
-
-.rojo {
-  background: #ea9999;
-  font-weight: bold;
-}
-
-.gris {
-  background: #eeeeee;
-}
-
-footer {
-  text-align: center;
-  padding: 30px 15px;
-  color: #777;
-  font-size: 13px;
-}
-
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; background: #f4f1f7; color: #333; }
+header { background: #6b3fa0; color: white; text-align: center; padding: 22px 15px; }
+header h1 { margin: 0; font-size: 25px; }
+header h2 { margin: 8px 0 0; font-size: 15px; font-weight: normal; }
+.contenedor { max-width: 1200px; margin: 25px auto; padding: 0 15px; }
+.buscador { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 3px 12px rgba(0,0,0,.10); text-align: center; }
+.buscador h3 { margin-top: 0; color: #6b3fa0; font-size: 24px; }
+.buscador p { font-size: 18px; }
+input { width: 100%; max-width: 420px; padding: 15px; border: 2px solid #6b3fa0; border-radius: 10px; font-size: 18px; text-align: center; }
+button { margin-top: 15px; padding: 14px 30px; border: none; border-radius: 10px; background: #6b3fa0; color: white; font-size: 17px; font-weight: bold; cursor: pointer; }
+button:active { transform: scale(.97); }
+#mensaje { margin-top: 18px; min-height: 22px; font-weight: bold; }
+.cargando { color: #6b3fa0; } .error { color: #c00000; } .exito { color: #38761d; }
+.datos-alumno { display: none; margin-top: 25px; }
+.tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.tarjeta { background: white; border-radius: 14px; padding: 18px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,.08); }
+.tarjeta .titulo { font-size: 13px; color: #777; }
+.tarjeta .valor { font-size: 23px; font-weight: bold; margin-top: 8px; color: #6b3fa0; }
+.tabla-contenedor { background: white; border-radius: 14px; padding: 15px; overflow-x: auto; box-shadow: 0 3px 12px rgba(0,0,0,.10); }
+.tabla-contenedor h3 { color: #6b3fa0; }
+table { border-collapse: collapse; width: 100%; min-width: 1400px; }
+th { background: #6b3fa0; color: white; padding: 9px; border: 1px solid #ddd; white-space: nowrap; }
+td { padding: 8px; border: 1px solid #ddd; text-align: center; white-space: nowrap; }
+.verde { background: #b6d7a8; font-weight: bold; }
+.amarillo { background: #ffe599; font-weight: bold; }
+.rojo { background: #ea9999; font-weight: bold; }
+.gris { background: #eeeeee; }
+footer { text-align: center; padding: 30px 15px; color: #777; font-size: 13px; }
 @media (max-width: 600px) {
-
-  header h1 {
-    font-size: 22px;
-  }
-
-  header h2 {
-    font-size: 13px;
-  }
-
-  .buscador {
-    padding: 20px 15px;
-  }
-
-  .buscador h3 {
-    font-size: 21px;
-  }
-
-  .tarjetas {
-    grid-template-columns: 1fr 1fr;
-  }
+header h1 { font-size: 22px; }
+header h2 { font-size: 13px; }
+.buscador { padding: 20px 15px; }
+.buscador h3 { font-size: 21px; }
+.tarjetas { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
-
 <body>
-
 <header>
-
-  <h1>🐺 SIEE 3017</h1>
-
-  <h2>
-    Escuela Secundaria Estatal "Gral. Francisco Villa" No. 3017
-  </h2>
-
-  <h2>
-    Sistema Integral de Evaluación y Economía Escolar (SIEE)
-  </h2>
-
+<h1>🐺 SIEE 3017</h1>
+<h2>Escuela Secundaria Estatal "Gral. Francisco Villa" No. 3017</h2>
+<h2>Sistema Integral de Evaluación y Economía Escolar (SIEE)</h2>
 </header>
-
-
 <div class="contenedor">
-
-  <div class="buscador">
-
-    <h3>Consulta de alumno</h3>
-
-    <p>Ingresa el ID de tu hijo(a)</p>
-
-    <input
-      type="text"
-      id="idAlumno"
-      placeholder="Ejemplo: ALONSO-001"
-      autocomplete="off"
-    >
-
-    <br>
-
-    <button type="button" id="botonConsultar">
-      CONSULTAR
-    </button>
-
-    <div id="mensaje"></div>
-
-  </div>
-
-
-  <div id="datosAlumno" class="datos-alumno">
-
-    <div class="tarjetas">
-
-      <div class="tarjeta">
-        <div class="titulo">ALUMNO</div>
-        <div class="valor" id="nombreAlumno">---</div>
-      </div>
-
-      <div class="tarjeta">
-        <div class="titulo">PROMEDIO FINAL</div>
-        <div class="valor" id="promedioFinal">---</div>
-      </div>
-
-      <div class="tarjeta">
-        <div class="titulo">MATEPESOS</div>
-        <div class="valor" id="matepesos">---</div>
-      </div>
-
-      <div class="tarjeta">
-        <div class="titulo">ESTADO</div>
-        <div class="valor" id="estadoAlumno">---</div>
-      </div>
-
-    </div>
-
-
-    <div class="tabla-contenedor">
-
-      <h3>📊 Desempeño académico</h3>
-
-      <table>
-
-        <thead>
-          <tr id="encabezados"></tr>
-        </thead>
-
-        <tbody>
-          <tr id="filaAlumno"></tr>
-        </tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
+<div class="buscador">
+<h3>Consulta de alumno</h3>
+<p>Ingresa el ID de tu hijo(a)</p>
+<input type="text" id="idAlumno" placeholder="Ejemplo: A-001" autocomplete="off">
+<br>
+<button type="button" id="botonConsultar">CONSULTAR</button>
+<div id="mensaje"></div>
 </div>
-
-
-<footer>
-  Profesora Myrna Judith Limas Gómez
-</footer>
-
+<div id="datosAlumno" class="datos-alumno">
+<div class="tarjetas">
+<div class="tarjeta"><div class="titulo">ALUMNO</div><div class="valor" id="nombreAlumno">---</div></div>
+<div class="tarjeta"><div class="titulo">PROMEDIO FINAL</div><div class="valor" id="promedioFinal">---</div></div>
+<div class="tarjeta"><div class="titulo">MATEPESOS</div><div class="valor" id="matepesos">---</div></div>
+<div class="tarjeta"><div class="titulo">ESTADO</div><div class="valor" id="estadoAlumno">---</div></div>
+</div>
+<div class="tabla-contenedor">
+<h3>📊 Desempeño académico</h3>
+<table><thead><tr id="encabezados"></tr></thead><tbody><tr id="filaAlumno"></tr></tbody></table>
+</div>
+</div>
+</div>
+<footer>Profesora Myrna Judith Limas Gómez</footer>
 
 <script>
-
 /* =====================================================
-   CONFIGURACIÓN
+   FICHAS PÚBLICAS INDIVIDUALES
    ===================================================== */
-
-const SPREADSHEET_ID =
-  "1ZCgGSCttmO2Dog-g6p5pDn-buNmsmWo9tM5Mgsf-aC0";
-
-const GID =
-  "1047865760";
-
+const FICHAS = {
+  "A-001": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTy_afHOiOs8SwMPmjy_CWtpgfu07txk1cIMyckIhb8UkgzKND32xcuKAQRKY_9YYxmqtaeZart9aJT/pubhtml?gid=0&single=true",
+  "A-002": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTFogGora4mZy5SFMdeQu24_ZlZAbKC3fSksRuQq78IDbQ7njJa-RuSzZLxg-s60epKvVc-5rJutGOF/pubhtml?gid=0&single=true",
+  "A-003": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQHqW_7m7Hn5QXmTScDFURtMwFx29BDnlzuxE4sYbq_Hy289FQsoTHmjEgc2R6L5x1g4So9QlHJxWjI/pubhtml?gid=0&single=true",
+  "A-004": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRdzhW6-8Ft0nxOTUSWm-0mes7a_1O03BwCawbOvVsJLsAkdOudT2_T6iO5sJ7nkZzOs-uQ7G6SWdiz/pubhtml?gid=0&single=true",
+  "A-005": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTN4NSNfboa6S8i9gOZbnYsNuCUM2H4YvBrDbrCD4zdqLIMDvg5rQzJ9S-jtLg11iVazRXqjrIqkFbu/pubhtml?gid=0&single=true",
+  "A-006": "https://docs.google.com/spreadsheets/d/e/2PACX-1vR0M4VM9DUBpEh9KIEIEKs_kkTqUj7J6ZZCSiuyDVw95ePeDFEzXkAKwN8LsIkEhiCu8K6nlfk6yt83/pubhtml?gid=0&single=true",
+  "A-007": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSzcCCcb-__HLdydQ4Au_36aNX-fNVx1G-cQOiPyIG5ism7UV0I4B5S1n0_02p8jg6K_OKYA5IEPtxy/pubhtml?gid=0&single=true",
+  "A-008": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTVirUAFQ77ZoxAJrFcO8ibkVC9IkWDf7mbhWM_mo4Zo6cfoM4uK_Nh4w-c2FlO1sX3NYZDGPTqt09H/pubhtml?gid=0&single=true",
+  "A-009": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTbgswzA0qXJ0BRm0XxQDGXTuOczkDjKvoBjzcPO0SDhT5aRuCsjYa5GA7RhYbJCP9fHZZs8wXOzT0Q/pubhtml?gid=0&single=true",
+  "A-010": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7xolaUXNpZeFFwl1WF-hrVveoA-NkvqRzJSCtjnEf4VGMo_bLBDiJBCO9iF6z1wQT6nc84GMFLgBo/pubhtml?gid=0&single=true",
+  "A-011": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRYXWBymVFsbXFIdTw-sXzdUuD2gptnMyG2uxqYzilct-3OeINJZ7_cKq88sbubKFe2R_aMHSc1-Oux/pubhtml?gid=0&single=true",
+  "A-012": "https://docs.google.com/spreadsheets/d/e/2PACX-1vR7E1eR2etHkrll6zDThZg_3MVsdqOe2a7-AH9aspf3CRV7BuB3wMWhYifskWwB492loZKXCamBa7CB/pubhtml?gid=0&single=true",
+  "A-013": "https://docs.google.com/spreadsheets/d/e/2PACX-1vShMQMoD9d0VU5SMkcjxmD_Cygg9bw-fOLnad7GbJgY0hTKcU6Zshq79ioqOIGOtw9-0NWX4k_6bn20/pubhtml?gid=0&single=true",
+  "A-014": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS5nOp_7hw9nGHFJ-lXINJrOzJyLoHHe5D6xGThX4Mn0kFrYM6nNhNZYymICbLgkpWBAGQqxt4Y6cpw/pubhtml?gid=0&single=true",
+  "A-015": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKJRIDkjTIJilsbCDfpMSE2QlANgOnvGZdJXUdhMFp92yiubiA8y8yZP9NYCsYb4M8lBdMdQ_l6ywb/pubhtml?gid=0&single=true",
+  "A-016": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRzVg8SYIucMxMRsd-eR6XBYlj0zU3PHRShwzntt68896YD2SVOCLw6b2ZZSUkHlGfIt_GHkIbrI_hu/pubhtml?gid=0&single=true",
+  "A-017": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQtHR8g0LBL9xHtfh-Xq8H7SyBDx-W9yM2IhH9JTfdHgujY2Dus8Yh-WTOiu83uPc21btCJrB5Eqbq_/pubhtml?gid=0&single=true",
+  "A-018": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSKgdGWl7RLEzvoQjfJK9WmWOQ6etfk4djKaIsoiB2QaInHeeKTFsk7seI4Fjm0ZNKSSZClI-ziJM1J/pubhtml?gid=0&single=true",
+  "A-019": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTh2n--2NPhGf8cz3RZ26RlYTYWab7tdJysUot-EBroiwegLBffIpmFx9FD_X0yliGmB47ONl81ZcK1/pubhtml?gid=0&single=true",
+  "A-020": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUwjWbLFDOdMGe9OJnPH0VRPUzuKSmcZ4lby2_zQPpCW6AwNVn7VGYQP_mFvlyC_vVHbijjmLNnaL2/pubhtml?gid=0&single=true",
+  "A-021": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRjHZlOAaK32bxNVdxPeVFROxnDJt1bUvsY1jyaYzv23j6tnNb8Dr-Ge8ENbFZvlJUWg0cFvJ2BC85w/pubhtml?gid=0&single=true",
+  "A-022": "https://docs.google.com/spreadsheets/d/e/2PACX-1vToxsrwqnSozKc3l3xk73tOd0tCmU4UXaYtAGfO-gWm_4CELn0miPwSk4O7ZJFzRF-9owmuhGBgdUhl/pubhtml?gid=0&single=true",
+  "A-023": "https://docs.google.com/spreadsheets/d/e/2PACX-1vScZM6TcDXjfwK58M2bWHwCdxnGgyiEmoqxdoXd03Fimf1h3sHwdvQuyU68g36YwxWQEKWaKCDzNB60/pubhtml?gid=0&single=true",
+  "A-024": "https://docs.google.com/spreadsheets/d/e/2PACX-1vT_SnyEY_5N0AE5FSeS74wkJI3PqalMtOix7Atu-rmXNtPYh4vua4g91duYYE5lHMf4HpG0qqGRjni2/pubhtml?gid=0&single=true",
+  "A-025": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSAOlFXXBqUI-HowA5UeFX0Qge7xH8Iu15QAJWq0xXruVSGMVLQmImnuHo3y-ZsT1Eqmj9mBems1oIQ/pubhtml?gid=0&single=true",
+  "A-026": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5FHObLQK2MP3fk2xwpXBLi2hB2auU2UpGzPoTgZvwnSMQcuJm-u35uKnOPrnNz9WHVABELFXMYH1i/pubhtml?gid=0&single=true",
+  "A-027": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSVYW2aZ5wLWZzsgdyb5I-ixyXwu4WZ9bjwZ3DLyLj6pQjzPeclQwlJjP_iGc_a7G76Odkfr0-QOxqv/pubhtml?gid=0&single=true",
+  "A-028": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoqOEW_6HQhq1ZSIsbzYvRQwh_uh6OM6csgb8tUjVrEegrR_-PvNk9CUJGvY30en07WGj5dxmrPf1V/pubhtml?gid=0&single=true",
+  "A-029": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQLqIvh3FTXRSaDyd9FxFf9iCW4NJJivcK9xEBrq3q6P6KVjS7-gS9UMwdqaolT81JkYZ6Pimo5akvx/pubhtml?gid=0&single=true",
+  "A-030": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSqa6ThOCHuQLlMAcvppo8o0i4s_z1L1viKK-8pMv6IFWdeOiJOKiH9sa-72igujslDR165zRkYRm3N/pubhtml?gid=0&single=true"
+};
 
 /*
-   IMPORTANTE:
-
-   La hoja original de la alumna tiene:
-
-   A2  = NOMBRE
-   CA2 = PROMEDIO FINAL
-   CF2 = MATEPESOS
-
-   Pero PUBLICO_ALONSO tiene una columna adicional
-   A para el ID.
-
-   Por eso, dentro de PUBLICO_ALONSO:
-
-   A  = ID
-   B  = NOMBRE
-   CB = PROMEDIO FINAL
-   CG = MATEPESOS
+  Cada ID apunta a un archivo público INDEPENDIENTE.
+  Por privacidad, el portal no consulta una hoja con todos
+  los alumnos. Al localizar un ID, muestra únicamente
+  la ficha pública correspondiente.
 */
 
-const COLUMNA_ID = 0;
-const COLUMNA_NOMBRE = 1;
-const COLUMNA_PROMEDIO = 79;
-const COLUMNA_MATEPESOS = 84;
-
-const TOTAL_COLUMNAS = 85;
-
-
-let datosGoogle = null;
-
-
-/* =====================================================
-   MOSTRAR MENSAJE
-   ===================================================== */
-
 function mostrarMensaje(texto, clase) {
-
-  const mensaje =
-    document.getElementById("mensaje");
-
-  mensaje.textContent =
-    texto;
-
-  mensaje.className =
-    clase || "";
-
+  const mensaje = document.getElementById("mensaje");
+  mensaje.textContent = texto;
+  mensaje.className = clase || "";
 }
-
-
-/* =====================================================
-   GOOGLE RESPONDE
-   ===================================================== */
-
-function recibirDatos(respuesta) {
-
-  if (
-    !respuesta ||
-    !respuesta.table ||
-    !respuesta.table.rows
-  ) {
-
-    mostrarMensaje(
-      "No se pudo recibir la información de Google.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  datosGoogle =
-    respuesta.table;
-
-
-  mostrarMensaje(
-    "Información lista. Escribe el ID y pulsa CONSULTAR.",
-    "exito"
-  );
-
-}
-
-
-/* =====================================================
-   CARGAR DATOS
-   ===================================================== */
-
-function cargarDatos() {
-
-  mostrarMensaje(
-    "Cargando información...",
-    "cargando"
-  );
-
-
-  const script =
-    document.createElement("script");
-
-
-  const url =
-    "https://docs.google.com/spreadsheets/d/" +
-    SPREADSHEET_ID +
-    "/gviz/tq" +
-    "?gid=" + GID +
-    "&headers=1" +
-    "&tq=select%20*" +
-    "&tqx=responseHandler%3ArecibirDatos";
-
-
-  script.src =
-    url;
-
-
-  script.onerror =
-    function() {
-
-      mostrarMensaje(
-        "No se pudo conectar con la información pública.",
-        "error"
-      );
-
-    };
-
-
-  document.head.appendChild(
-    script
-  );
-
-}
-
-
-/* =====================================================
-   BUSCAR ALUMNO
-   ===================================================== */
 
 function buscarAlumno() {
+  const campo = document.getElementById("idAlumno");
+  const id = campo.value.trim().toUpperCase();
+  const datos = document.getElementById("datosAlumno");
 
-  mostrarMensaje(
-    "Consultando...",
-    "cargando"
-  );
-
-
-  const campo =
-    document.getElementById(
-      "idAlumno"
-    );
-
-
-  const id =
-    campo.value
-      .trim()
-      .toUpperCase();
-
+  datos.style.display = "none";
 
   if (!id) {
-
-    mostrarMensaje(
-      "Escribe el ID del alumno.",
-      "error"
-    );
-
+    mostrarMensaje("Escribe el ID del alumno.", "error");
     return;
   }
 
-
-  if (!datosGoogle) {
-
-    mostrarMensaje(
-      "La información todavía está cargando. Espera unos segundos y vuelve a consultar.",
-      "cargando"
-    );
-
+  if (!/^A-\d{3}$/.test(id)) {
+    mostrarMensaje("Escribe el ID con este formato: A-001.", "error");
     return;
   }
 
+  const url = FICHAS[id];
 
-  const filas =
-    datosGoogle.rows || [];
-
-
-  let filaEncontrada =
-    null;
-
-
-  for (
-    let i = 0;
-    i < filas.length;
-    i++
-  ) {
-
-    const fila =
-      filas[i].c || [];
-
-
-    const valorID =
-      obtenerTexto(
-        fila[COLUMNA_ID]
-      )
-      .trim()
-      .toUpperCase();
-
-
-    if (
-      valorID === id
-    ) {
-
-      filaEncontrada =
-        fila;
-
-      break;
-
-    }
-
-  }
-
-
-  if (!filaEncontrada) {
-
-    mostrarMensaje(
-      "No se encontró el ID " + id + ".",
-      "error"
-    );
-
-
-    document
-      .getElementById(
-        "datosAlumno"
-      )
-      .style.display =
-        "none";
-
-
+  if (!url) {
+    mostrarMensaje("No se encontró el ID " + id + ".", "error");
     return;
   }
 
+  /*
+    La ficha publicada de Google Sheets es la fuente individual.
+    Se abre en una nueva pestaña para que el usuario vea únicamente
+    la información del alumno correspondiente.
+  */
+  window.open(url, "_blank", "noopener,noreferrer");
 
-  mostrarAlumno(
-    datosGoogle.cols || [],
-    filaEncontrada
-  );
-
+  mostrarMensaje("Ficha del alumno " + id + " abierta correctamente.", "exito");
 }
 
+document.getElementById("botonConsultar").addEventListener("click", buscarAlumno);
 
-/* =====================================================
-   MOSTRAR ALUMNO
-   ===================================================== */
-
-function mostrarAlumno(
-  columnas,
-  fila
-) {
-
-  const encabezados =
-    document.getElementById(
-      "encabezados"
-    );
-
-
-  const filaAlumno =
-    document.getElementById(
-      "filaAlumno"
-    );
-
-
-  encabezados.innerHTML =
-    "";
-
-  filaAlumno.innerHTML =
-    "";
-
-
-  /* ==========================================
-     DATOS REALES
-     ========================================== */
-
-  const nombre =
-    obtenerTexto(
-      fila[COLUMNA_NOMBRE]
-    );
-
-
-  const promedio =
-    obtenerTexto(
-      fila[COLUMNA_PROMEDIO]
-    );
-
-
-  const matepesos =
-    obtenerTexto(
-      fila[COLUMNA_MATEPESOS]
-    );
-
-
-  /* ==========================================
-     TARJETA NOMBRE
-     ========================================== */
-
-  document
-    .getElementById(
-      "nombreAlumno"
-    )
-    .textContent =
-      nombre || "Alumno";
-
-
-  /* ==========================================
-     TARJETA PROMEDIO
-     ========================================== */
-
-  document
-    .getElementById(
-      "promedioFinal"
-    )
-    .textContent =
-      promedio || "---";
-
-
-  /* ==========================================
-     TARJETA MATEPESOS
-     ========================================== */
-
-  document
-    .getElementById(
-      "matepesos"
-    )
-    .textContent =
-      matepesos || "---";
-
-
-  /* ==========================================
-     ESTADO
-     ========================================== */
-
-  const numeroPromedio =
-    parseFloat(
-      String(promedio)
-        .replace(",", ".")
-    );
-
-
-  const estado =
-    document.getElementById(
-      "estadoAlumno"
-    );
-
-
-  if (
-    isNaN(numeroPromedio)
-  ) {
-
-    estado.textContent =
-      "---";
-
-    estado.style.color =
-      "#6b3fa0";
-
+document.getElementById("idAlumno").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    buscarAlumno();
   }
-
-  else if (
-    numeroPromedio >= 8
-  ) {
-
-    estado.textContent =
-      "🟢 APROBADO";
-
-    estado.style.color =
-      "#38761d";
-
-  }
-
-  else if (
-    numeroPromedio >= 6
-  ) {
-
-    estado.textContent =
-      "🟡 REGULAR";
-
-    estado.style.color =
-      "#bf9000";
-
-  }
-
-  else {
-
-    estado.textContent =
-      "🔴 EN RIESGO";
-
-    estado.style.color =
-      "#cc0000";
-
-  }
-
-
-  /* ==========================================
-     TABLA COMPLETA
-     ========================================== */
-
-  for (
-    let i = 0;
-    i < TOTAL_COLUMNAS;
-    i++
-  ) {
-
-    const columna =
-      columnas[i] || {};
-
-
-    let encabezado =
-      columna.label || "";
-
-
-    if (!encabezado) {
-
-      encabezado =
-        obtenerLetraColumna(i);
-
-    }
-
-
-    const celda =
-      fila[i] || null;
-
-
-    const valor =
-      obtenerValor(
-        celda
-      );
-
-
-    const texto =
-      obtenerTexto(
-        celda
-      );
-
-
-    /* ======================================
-       ENCABEZADO
-       ====================================== */
-
-    const th =
-      document.createElement(
-        "th"
-      );
-
-
-    th.textContent =
-      encabezado;
-
-
-    encabezados.appendChild(
-      th
-    );
-
-
-    /* ======================================
-       DATO
-       ====================================== */
-
-    const td =
-      document.createElement(
-        "td"
-      );
-
-
-    td.textContent =
-      texto;
-
-
-    aplicarSemaforo(
-      td,
-      valor
-    );
-
-
-    filaAlumno.appendChild(
-      td
-    );
-
-  }
-
-
-  /* ==========================================
-     MOSTRAR RESULTADO
-     ========================================== */
-
-  document
-    .getElementById(
-      "datosAlumno"
-    )
-    .style.display =
-      "block";
-
-
-  mostrarMensaje(
-    "Consulta realizada correctamente.",
-    "exito"
-  );
-
-}
-
-
-/* =====================================================
-   OBTENER TEXTO
-   ===================================================== */
-
-function obtenerTexto(celda) {
-
-  if (!celda) {
-
-    return "";
-
-  }
-
-
-  if (
-    celda.f !== undefined &&
-    celda.f !== null
-  ) {
-
-    return String(
-      celda.f
-    );
-
-  }
-
-
-  if (
-    celda.v !== undefined &&
-    celda.v !== null
-  ) {
-
-    return String(
-      celda.v
-    );
-
-  }
-
-
-  return "";
-
-}
-
-
-/* =====================================================
-   OBTENER VALOR REAL
-   ===================================================== */
-
-function obtenerValor(celda) {
-
-  if (!celda) {
-
-    return "";
-
-  }
-
-
-  if (
-    celda.v !== undefined &&
-    celda.v !== null
-  ) {
-
-    return celda.v;
-
-  }
-
-
-  return "";
-
-}
-
-
-/* =====================================================
-   LETRA DE COLUMNA
-   ===================================================== */
-
-function obtenerLetraColumna(numero) {
-
-  let resultado =
-    "";
-
-  let n =
-    numero + 1;
-
-
-  while (
-    n > 0
-  ) {
-
-    const residuo =
-      (n - 1) % 26;
-
-
-    resultado =
-      String.fromCharCode(
-        65 + residuo
-      ) +
-      resultado;
-
-
-    n =
-      Math.floor(
-        (n - 1) / 26
-      );
-
-  }
-
-
-  return resultado;
-
-}
-
-
-/* =====================================================
-   SEMÁFORO
-   ===================================================== */
-
-function aplicarSemaforo(
-  celda,
-  valor
-) {
-
-  if (
-    valor === "" ||
-    valor === null ||
-    valor === undefined
-  ) {
-
-    celda.classList.add(
-      "gris"
-    );
-
-    return;
-
-  }
-
-
-  const numero =
-    parseFloat(
-      String(valor)
-        .replace(",", ".")
-    );
-
-
-  if (
-    isNaN(numero)
-  ) {
-
-    return;
-
-  }
-
-
-  if (
-    numero >= 8
-  ) {
-
-    celda.classList.add(
-      "verde"
-    );
-
-  }
-
-  else if (
-    numero >= 6
-  ) {
-
-    celda.classList.add(
-      "amarillo"
-    );
-
-  }
-
-  else {
-
-    celda.classList.add(
-      "rojo"
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   BOTÓN
-   ===================================================== */
-
-document
-  .getElementById(
-    "botonConsultar"
-  )
-  .addEventListener(
-    "click",
-    buscarAlumno
-  );
-
-
-/* =====================================================
-   ENTER
-   ===================================================== */
-
-document
-  .getElementById(
-    "idAlumno"
-  )
-  .addEventListener(
-    "keydown",
-    function(event) {
-
-      if (
-        event.key === "Enter"
-      ) {
-
-        buscarAlumno();
-
-      }
-
-    }
-  );
-
-
-/* =====================================================
-   INICIAR
-   ===================================================== */
-
-cargarDatos();
-
+});
 </script>
-
 </body>
 </html>
